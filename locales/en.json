@@ -1,0 +1,20 @@
+{
+	"value must be between 1 and 30 characteres length": "value must be between 1 and 30 characteres length",
+	"must be numeric": "must be numeric",
+	"must be a number greater than 0": "must be a number greater than 0",
+	"wrong format": "wrong format",
+	"length must be between 1 and 100 characters": "length must be between 1 and 100 characters",
+	"is a mandatory field": "is a mandatory field",
+	"Connect to mongodb": "Connect to mongodb",
+	"Server running on port": "Server running on port",
+	"Advert detail": "Advert detail",
+	"Back": "Back",
+	"Advert created": "Advert created",
+	"Welcome to Nodepop": "Welcome to Nodepop",
+	"Home": "Home",
+	"Find below all the adverts available for the current search": "Find below all the adverts available for the current search",
+	"Detail": "Detail",
+	"Not valid": "Not valid",
+	"Error detected": "Error detected",
+	"Error starting server": "Error starting server"
+}

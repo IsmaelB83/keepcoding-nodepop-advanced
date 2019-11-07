@@ -1,0 +1,20 @@
+{
+	"value must be between 1 and 30 characteres length": "el valor debe tener una longitud de entre 1 y 30 caracteres",
+	"must be numeric": "debe ser numérico",
+	"must be a number greater than 0": "debe ser un número mayor que 0",
+	"wrong format": "formato incorrecto",
+	"length must be between 1 and 100 characters": "la longitud debe estar entre 1 y 100 caracteres",
+	"is a mandatory field": "es un campo obligatorio",
+	"Connect to mongodb": "connectar a mongodb",
+	"Server running on port": "servidor corriendo en puerto",
+	"Advert detail": "Detalle de anuncio",
+	"Back": "Volver",
+	"Advert created": "Anuncio creado",
+	"Welcome to Nodepop": "Bienvenido a nodepop",
+	"Home": "Index",
+	"Find below all the adverts available for the current search": "Listado de anuncios que cumplen con la búsqueda realizada",
+	"Detail": "Detalle",
+	"Not valid": "No valido",
+	"Error detected": "Error detectado",
+	"Error starting server": "Error arrancando servidor"
+}
