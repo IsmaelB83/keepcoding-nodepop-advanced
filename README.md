@@ -1,8 +1,8 @@
 # Version 2.0 de nodepop adaptada para el módulo de backend avanzado
 
-### Contents
-- [Introducción](#INTRODUCCION)
-- [Instalación y ejecución](#INSTALACIÓN-Y-EJECUCIÓN)
+## CONTENTS
+- [INTRODUCCIÓN](#INTRODUCCION)
+- [INSTALACIÓN Y EJECUCIÓN](#INSTALACIÓN-Y-EJECUCIÓN)
   - [Descarga](#Descarga)
   - [Instalación](#Inicialización-de-base-de-datos)
   - [Ejecución](#Ejecución)
@@ -16,10 +16,10 @@
   - [Listado de tags](#Listado-de-tags)
   - [Crear un anuncio](#Crear-un-anuncio)
   - [Actualizar un anuncio](#Actualizar-un-anuncio)
-- [Web](#location)
-  - [Ejemplo de vista de anuncios](#location-schema)
+- [WEB](#web)
 
-### INTRODUCCION
+
+## INTRODUCCION
 
 Este proyecto proporciona una API sobre una base de datos sencilla de compra/venta de artículos de segunda mano.
 
@@ -28,9 +28,9 @@ obtener el listado completo de anuncios en compra/venta, así como el detalle de
 
 En este documento se detalla el modo de utilización tanto de la API como de la WEB creada.
 
-### INSTALACIÓN Y EJECUCIÓN
+## INSTALACIÓN Y EJECUCIÓN
 
-## Descarga
+### Descarga
 
 Para descargar este repositorio:
 ```
@@ -38,14 +38,14 @@ Para descargar este repositorio:
 \downloads\git clone git@github.com:IsmaelB83/keepcoding-backend-node.git
 ```
 
-## Instalación de modulos
+### Instalación de modulos
 
 Utiliza npm install para instalar todas las dependencias de la aplicación
 ```
 \downloads\keepcoding-backend-node\npm install
 ```
 
-## Inicialización de base de datos
+### Inicialización de base de datos
 
 Inicializa la base de datos mongo. Esto borrará la colección "item" de la base de datos mongo (nodepop), y creará los anuncios contenidos en
 \downloads\keepcoding-backend-node\src\database\data.json
@@ -53,7 +53,7 @@ Inicializa la base de datos mongo. Esto borrará la colección "item" de la base
 \downloads\keepcoding-backend-node\npm run init
 ```
 
-## Ejecución
+### Ejecución
 
 Para arrancar la API y la web utilizaremos npm start. Arrancando de esta forma (sin parámetros), el servidor se arrancará por defecto en modo HTTP escuchando en el puerto 8080.
 ```
@@ -65,7 +65,7 @@ Para arrancar el servidor en un puerto distinto, y en modo HTTPS debemos indicar
 \downloads\keepcoding-backend-node\HTTPS=Y PORT=443 npm start
 ```
 
-## Configuración
+### Configuración
 
 En el fichero ubicado en /src/config.js se pueden configurar diversos parámetros de la aplicación como son: puertos por defecto (8080/8443), la url de conexión a mongodb, y las rutas de los certificados en caso
 de querer instanciar un server https.
@@ -79,9 +79,9 @@ module.exports = {
 }
 ```
 
-### REST API
+## REST API
 
-## Anuncios
+### Anuncios
 Hay un total de 10 anuncios en el script de carga proporcionado.
 
 ### Anuncios-schema
@@ -259,7 +259,7 @@ http://localhost:3001/apiv1/anuncios/5d3a0a5f9bd7ed2ece463abb  (PUT)
 ```
 
 
-### WEB
+## WEB
 
 Adicionalmente a la API se proporciona una web con dos vistas, para poder visualizar el contenido de anuncios de la base de datos. Estas dos vistas son el propio `index`, y la vista de `detail`, 
 a la que se navega desde la vista de index cuando se hace click en el detalle de un anuncio cualquiera:
