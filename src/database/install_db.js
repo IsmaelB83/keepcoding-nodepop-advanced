@@ -3,7 +3,7 @@
 const fs = require('fs');
 // Own imports
 const database = require('./index');
-const Item = require('../models/Item');
+const { Item } = require('../models');
 const Config = require('../config');
 const log = require('../utils/log');
 

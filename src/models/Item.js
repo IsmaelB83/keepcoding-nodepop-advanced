@@ -1,7 +1,7 @@
 'use strict';
 // Node imports
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const Schema = mongoose.Schema;
 // Own imports
 const log = require('../utils/log');
 

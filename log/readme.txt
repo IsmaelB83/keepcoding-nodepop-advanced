@@ -1,1 +1,1 @@
-En esta carpeta se generarán los logs de la api
+This folder will contain the logs registered by the API

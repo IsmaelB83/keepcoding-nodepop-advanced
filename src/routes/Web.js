@@ -3,11 +3,10 @@
 const express = require('express');
 const { query, param } = require('express-validator');
 // Own imports
-const WebCtrl = require('../controllers/Web');
+const { WebCtrl } = require('../controllers');
 
 module.exports = () => {
     const router = express.Router();
-    
     // Obtener y filtrar sobre el listado de anuncios
     router.get('/', [
         query('name').optional().isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),

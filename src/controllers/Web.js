@@ -3,7 +3,7 @@
 var moment = require('moment');
 const { validationResult } = require('express-validator');
 // Own imports
-const Item = require('../models/Item');
+const { Item } = require('../models');
 const Log = require('../utils/log');
 
 

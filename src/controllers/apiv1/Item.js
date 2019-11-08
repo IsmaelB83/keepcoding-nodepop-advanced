@@ -2,10 +2,11 @@
 // Own imports
 const { validationResult } = require('express-validator');
 // Node imports
-const Item = require('../../models/Item');
+const { Item } = require('../../models/');
 const Log = require('../../utils/log');
 
 const ctrl = {};
+
 
 ctrl.select = async (req, res, next) => {
     try {
