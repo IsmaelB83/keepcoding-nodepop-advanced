@@ -24,7 +24,7 @@ module.exports = () => {
         query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')
     ], WebCtrl.index); 
     // Obtener un anuncio por su ID
-    router.get('/:id', [
+    router.get('/advert/:id', [
         param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
     ], WebCtrl.detail);
 

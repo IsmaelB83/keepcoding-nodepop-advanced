@@ -40,7 +40,7 @@
                       <a href="/?tag=<%=results[i].tags[j]%>"><span class="badge badge-<%=results[i].tags[j]%>"><%=results[i].tags[j]%></span></a>
                     <% } %>
                   </p>
-                  <a href="/<%=results[i].id%>" class="btn btn-block btn-primary"><%=__('Detail')%></a>
+                  <a href="/advert/<%=results[i].id%>" class="btn btn-block btn-primary"><%=__('Detail')%></a>
                   <small id="passwordHelpInline" class="text-muted">
                     <%=__('Advert created')%> <%= moment(results[i].createdAt).fromNow(); %>
                   </small>

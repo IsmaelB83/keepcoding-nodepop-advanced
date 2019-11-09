@@ -9,7 +9,7 @@ const { ItemCtrl } = require('../../controllers');
 module.exports = () => {
     const router = express.Router();
     // Rutas de anuncios
-    router.get('/anuncios/', AuthMiddleware, [
+    router.get('/', AuthMiddleware, [
         query('name').optional().isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),
         query('skip').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0'),
         query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0'),
@@ -24,17 +24,17 @@ module.exports = () => {
             return result;
         }).withMessage('must be numeric'),
     ], ItemCtrl.select);
-    router.get('/anuncios/:id', AuthMiddleware, [
+    router.get('/:id', AuthMiddleware, [
         param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
     ], ItemCtrl.selectOne);
-    router.put('/anuncios/:id', AuthMiddleware, [
+    router.put('/:id', AuthMiddleware, [
         param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
         body('name').optional().isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),
         body('description').optional().optional().isLength({min:0, max: 100}).withMessage('length must be between 1 and 100 characters'),
         body('price').optional().isNumeric().withMessage('must be numeric'),
         body('photo').optional().exists().withMessage('is a mandatory field'),
     ], ItemCtrl.update);
-    router.post('/anuncios/', AuthMiddleware, [
+    router.post('/', AuthMiddleware, [
         body('name').isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),
         body('description').optional().isLength({min:0, max: 100}).withMessage('length must be between 1 and 100 characters'),
         body('price').isNumeric().withMessage('must be numeric'),

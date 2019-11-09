@@ -20,7 +20,7 @@ const UserSchema = new Schema(
         /**
          * Encrypted password
          */
-        password: { type: String, required: true, minlength: 8 },
+        password: { type: String, required: true, minlength: 4 },
         /**
          * JSON Web Token to authenticate in the API
          */
@@ -68,6 +68,19 @@ UserSchema.statics.update = async function(id, newUser) {
         Log.fatal('Error actualizando usuario.');
         Log.fatal(error);
         return false;
+    }
+};
+
+/**
+* Función estática para eliminar todos los usuarios
+*/
+UserSchema.statics.deleteAll = async function() {
+    try {
+        await User.deleteMany({});
+    } catch (error) {
+        // Error no controlado
+        Log.fatal('Error while deleting users.');
+        Log.fatal(error);
     }
 };
 

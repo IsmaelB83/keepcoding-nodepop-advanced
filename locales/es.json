@@ -16,5 +16,6 @@
 	"Detail": "Detalle",
 	"Not valid": "No valido",
 	"Error detected": "Error detectado",
-	"Error starting server": "Error arrancando servidor"
+	"Error starting server": "Error arrancando servidor",
+	"404 Not Found": "404 Recurso no encontrado"
 }

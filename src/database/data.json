@@ -1,4 +1,11 @@
 {  
+   "users": [
+      {  
+         "name":"User Example",
+         "email": "user@example.com",
+         "password": "1234"
+      }
+   ],
    "anuncios": [
       {  
          "name":"PS4Pro",

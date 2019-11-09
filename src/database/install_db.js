@@ -3,7 +3,7 @@
 const fs = require('fs');
 // Own imports
 const database = require('./index');
-const { Item } = require('../models');
+const { Item, User } = require('../models');
 const Config = require('../config');
 const log = require('../utils/log');
 
@@ -19,15 +19,23 @@ async function initDB() {
         await database.connectToMongo(Config.mongodb);
         // Borro los datos de la colección de anuncion
         await Item.deleteAll();
-        // Creo los nuevos anuncios desde el json
-        let dump = JSON.parse(fs.readFileSync('./src/database/data.json', 'utf8'));
-        let items = [];
+        await User.deleteAll();
+        // Read JSON init data
+        const dump = JSON.parse(fs.readFileSync('./src/database/data.json', 'utf8'));
+        // Create default user
+        for (let i = 0; i < dump.users.length; i++) {
+            const user = new User(dump.users[i]);
+            await User.insert(user);
+        }
+        // Create default adverts
+        const items = [];
         for (let i = 0; i < dump.anuncios.length; i++) {
             items.push (new Item({...dump.anuncios[i]}));
         }
         await Item.insertAll(items);
-        log.info(`Database created with ${items.length} anuncios.`);
-        log.info('Database created succesfully. Please start nodepop with "npm start"');
+        // Create default user
+        log.info(`Database created with ${items.length} adverts and ${dump.users.length} users.`);
+        log.info('Please start nodepop with "npm start"');
     } catch (error) {
         // Error no controlado
         log.fatal('Uncontrolled error.');
