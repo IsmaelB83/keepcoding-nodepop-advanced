@@ -24,11 +24,13 @@ module.exports = () => {
         query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')
     ], WebCtrl.index); 
     // Add Advert
-    router.get('/advert/add', (req, res, next) => res.render('pages/addAdvert'));
+    router.get('/advert/add', WebCtrl.addAdvert);
     // Obtener un anuncio por su ID
     router.get('/advert/:id', [
         param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
     ], WebCtrl.detail);
+    // Change locale
+    router.get('/change-locale/:locale', WebCtrl.changeLocale);
     // Login
     router.get('/login', (req, res, next) => res.render('pages/login'));
     // Retorno el router

@@ -17,5 +17,10 @@
 	"Not valid": "No valido",
 	"Error detected": "Error detectado",
 	"Error starting server": "Error arrancando servidor",
-	"404 Not Found": "404 Recurso no encontrado"
+	"404 Not Found": "404 Recurso no encontrado",
+	"your email address": "tu direccción de email",
+	"your password": "tu contraseña",
+	"Enter your credentials to login": "Introduce tus credenciales para acceder",
+	"App created by": "Aplicación creada por",
+	"Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición": "Alumno del Bootcamp Fullstack Web Development VII Edicion de Keepcoding"
 }

@@ -17,5 +17,10 @@
 	"Not valid": "Not valid",
 	"Error detected": "Error detected",
 	"Error starting server": "Error starting server",
-	"404 Not Found": "Recurso no encontrado"
+	"404 Not Found": "404 Not found",
+	"your email address": "your email address",
+	"your password": "your password",
+	"Enter your credentials to login": "Enter your credentials to login",
+	"App created by": "Webapp created by",
+	"Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición": "Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición"
 }

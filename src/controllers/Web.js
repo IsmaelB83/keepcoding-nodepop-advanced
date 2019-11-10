@@ -62,4 +62,30 @@ ctrl.detail = async (req, res, next) => {
     }
 }
 
+ctrl.addAdvert = async (req, res, next) => {
+    try {
+        res.render('pages/add')
+    } catch (error) {
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        next(error);
+    }
+}
+
+ctrl.changeLocale = async (req, res, next) => {
+    try {
+        // Get locale and url to redirect after changing the locale
+        const locale = req.params.locale;
+        const backTo = req.get('referer');
+        // Set cookie for locale preferences
+        res.cookie('nodepop-locale', locale, {maxAge: 1000 * 3600 * 24 * 20});
+        // Redirect
+        res.redirect(backTo);
+    } catch (error) {
+        // Los errores de validación de usuario NO me interesa loguerarlos
+        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        next(error);
+    }
+}
+
 module.exports = ctrl;

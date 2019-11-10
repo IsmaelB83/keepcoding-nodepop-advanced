@@ -9,8 +9,8 @@ module.exports = function() {
     directory: path.join(__dirname, '../../', 'locales'),
     defaultLocale: 'en',
     autoReload: true, // recargar ficheros de idioma si cambian
-    syncFiles: true // crear literales en todos los locales
+    syncFiles: true, // crear literales en todos los locales
+    cookie: 'nodepop-locale' // used to overwrite language preferences in browser
   });
-  i18n.setLocale('en');
   return i18n;
 };
