@@ -24,7 +24,7 @@ ctrl.index = async (req, res, next) => {
                 return;
             } 
             // Ok
-            res.render('index.ejs',  {
+            res.render('pages/index.ejs',  {
                 success: true,
                 count: results.length,
                 results: results,
@@ -46,7 +46,7 @@ ctrl.detail = async (req, res, next) => {
         let result = await Item.findById(req.params.id);
         if (result) {
             // Ok
-            res.render('detail.ejs',  {
+            res.render('pages/detail.ejs',  {
                 success: true,
                 result: result,
                 moment: moment
@@ -61,6 +61,5 @@ ctrl.detail = async (req, res, next) => {
         next(error);
     }
 }
-
 
 module.exports = ctrl;

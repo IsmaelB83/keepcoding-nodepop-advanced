@@ -28,13 +28,13 @@ async function initServer(app) {
         let server, credentials = {};
         if (process.env.NODE_ENV === 'production') {
             credentials = {
-                key: fs.readFileSync(Config.key, 'utf8'),
-                cert: fs.readFileSync(Config.cert, 'utf8')
+                key: fs.readFileSync(Config.prod.key, 'utf8'),
+                cert: fs.readFileSync(Config.prod.cert, 'utf8')
             };
         } else {
             credentials = {
-                key: fs.readFileSync('./certs/example.com+5-key.pem', 'utf8'),
-                cert: fs.readFileSync('./certs/example.com+5.pem', 'utf8')
+                key: fs.readFileSync(Config.dev.key, 'utf8'),
+                cert: fs.readFileSync(Config.dev.cert, 'utf8')
             };
         }
         server = https.createServer(credentials, app);

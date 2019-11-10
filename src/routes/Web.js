@@ -23,11 +23,14 @@ module.exports = () => {
         query('skip').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0'),
         query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')
     ], WebCtrl.index); 
+    // Add Advert
+    router.get('/advert/add', (req, res, next) => res.render('pages/addAdvert'));
     // Obtener un anuncio por su ID
     router.get('/advert/:id', [
         param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
     ], WebCtrl.detail);
-
+    // Login
+    router.get('/login', (req, res, next) => res.render('pages/login'));
     // Retorno el router
     return router;
 }

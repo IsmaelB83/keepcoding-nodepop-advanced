@@ -24,9 +24,9 @@ module.exports = (error, req, res, next) => {
     res.locals.error = req.app.get('env') === 'development' ? error : {};
     // render the error page
     if (jsonError.status === 404) {
-        return res.render('error404');
+        return res.render('pages/error404');
     }
-    res.render('error', {error: jsonError});
+    res.render('pages/error', {error: jsonError});
 };
 
 /**
