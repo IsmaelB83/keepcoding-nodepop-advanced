@@ -5,11 +5,13 @@ const { query, param } = require('express-validator');
 // Own imports
 const { WebCtrl } = require('../controllers');
 
+
 module.exports = () => {
     const router = express.Router();
     // Obtener y filtrar sobre el listado de anuncios
-    router.get('/', [
-        query('name').optional().isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),
+    router.get(
+        '/', 
+        [query('name').optional().isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),
         query('price').optional().custom(value => {
             let aux = value.split('-');
             let result = true;
@@ -21,18 +23,36 @@ module.exports = () => {
             return result;
         }).withMessage('must be numeric'),
         query('skip').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0'),
-        query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')
-    ], WebCtrl.index); 
+        query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')],
+        WebCtrl.userAuthenticated, 
+        WebCtrl.index); 
     // Add Advert
-    router.get('/advert/add', WebCtrl.addAdvert);
+    router.get(
+        '/advert/add', 
+        WebCtrl.userAuthenticated,
+        WebCtrl.addAdvert);
     // Obtener un anuncio por su ID
-    router.get('/advert/:id', [
-        param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
-    ], WebCtrl.detail);
+    router.get(
+        '/advert/:id', 
+        [param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),], 
+        WebCtrl.userAuthenticated, 
+        WebCtrl.detail);
     // Change locale
-    router.get('/change-locale/:locale', WebCtrl.changeLocale);
-    // Login
-    router.get('/login', (req, res, next) => res.render('pages/login'));
+    router.get(
+        '/change-locale/:locale', 
+        WebCtrl.userAuthenticated, 
+        WebCtrl.changeLocale);
+    // User session
+    router.get(
+        '/logout', 
+        WebCtrl.userAuthenticated,
+        WebCtrl.login);
+    router.get(
+        '/login', 
+        WebCtrl.formLogin);
+    router.post(
+        '/login', 
+        WebCtrl.postLogin);
     // Retorno el router
     return router;
 }

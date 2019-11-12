@@ -2,6 +2,8 @@
 
 // Authorization
 module.exports = (error, req, res, next) => {
+    // URL to redirect at the end
+    const backTo = req.get('referer');
     // Error template
     const jsonError = {
         status: error.status || 500,
@@ -26,7 +28,7 @@ module.exports = (error, req, res, next) => {
     if (jsonError.status === 404) {
         return res.render('pages/error404');
     }
-    res.render('pages/error', {error: jsonError});
+    next({error: jsonError});
 };
 
 /**

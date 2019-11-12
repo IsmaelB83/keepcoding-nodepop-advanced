@@ -51,6 +51,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
     "simple-node-logger": "^18.12.23",
     "slug": "^1.1.0"
   }

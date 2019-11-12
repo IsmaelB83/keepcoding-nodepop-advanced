@@ -52,7 +52,7 @@ ctrl.login = async (req, res, next) => {
         });
     } catch (error) {
         if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
-        next(error);   
+        next(error);
     }
 }
 

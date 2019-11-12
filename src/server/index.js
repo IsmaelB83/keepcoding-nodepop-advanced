@@ -28,7 +28,7 @@ module.exports = function(app) {
     // Internacionalización mediante i18n
     app.use(i18n.init);
     // Routers
-    app.use('/favicon.ico', (req, res) => res.status(204)); // prevent favicon error while testing api from web browser
+    /* app.use('/favicon.ico', (req, res) => res.status(204)); // prevent favicon error while testing api from web browser */
     app.use('/', WebRoutes());
     app.use('/apiv1/anuncios', ItemRoutes());
     app.use('/apiv1/authenticate', AuthRoutes());
