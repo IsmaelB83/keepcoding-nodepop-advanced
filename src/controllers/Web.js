@@ -25,7 +25,8 @@ ctrl.index = async (req, res, next) => {
             success: true,
             count: results.length,
             results: results,
-            moment: moment
+            moment: moment,
+            userName: req.session.authUser.name
         });
     });
 }
@@ -61,7 +62,6 @@ ctrl.changeLocale = async (req, res, next) => {
 }
 
 ctrl.formLogin = async (req, res, next) => {
-    // Authorization error
     res.render('pages/login');
 }
 
@@ -74,6 +74,11 @@ ctrl.postLogin = async (req, res, next) => {
     if (user) {
         // Compare hashes (use bcrypt to avoid timing attacks as well)
         if (bcrypt.compareSync(password, user.password)) {
+            req.session.authUser = {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            }
             return res.redirect('/');
         }
     }
@@ -86,15 +91,8 @@ ctrl.postLogin = async (req, res, next) => {
 
 ctrl.logout = (req, res, next) => {
     req.session.destroy(() => {
-        res.redirect('/login/');
+        res.redirect('/login');
     });
-}
-
-ctrl.userAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    return res.redirect('login/');
 }
 
 module.exports = ctrl;

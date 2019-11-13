@@ -4,6 +4,7 @@ const express = require('express');
 const { query, param } = require('express-validator');
 // Own imports
 const { WebCtrl } = require('../controllers');
+const { SessionAuth } = require('../middlewares');
 
 
 module.exports = () => {
@@ -24,29 +25,29 @@ module.exports = () => {
         }).withMessage('must be numeric'),
         query('skip').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0'),
         query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')],
-        WebCtrl.userAuthenticated, 
+        SessionAuth, 
         WebCtrl.index); 
     // Add Advert
     router.get(
         '/advert/add', 
-        WebCtrl.userAuthenticated,
+        SessionAuth,
         WebCtrl.addAdvert);
     // Obtener un anuncio por su ID
     router.get(
         '/advert/:id', 
         [param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),], 
-        WebCtrl.userAuthenticated, 
+        SessionAuth, 
         WebCtrl.detail);
     // Change locale
     router.get(
         '/change-locale/:locale', 
-        WebCtrl.userAuthenticated, 
+        SessionAuth, 
         WebCtrl.changeLocale);
     // User session
     router.get(
         '/logout', 
-        WebCtrl.userAuthenticated,
-        WebCtrl.login);
+        SessionAuth,
+        WebCtrl.logout);
     router.get(
         '/login', 
         WebCtrl.formLogin);
