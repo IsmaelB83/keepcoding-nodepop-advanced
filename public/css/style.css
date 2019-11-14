@@ -52,10 +52,11 @@ body {
 
 /* Estilos de etiquetas de los anuncios */
 .badge { color: white; }
-.badge-lifestyle { background-color: #007BFF; }
-.badge-mobile { background-color: #28A745; }
-.badge-motor { background-color: #DC3545; }
-.badge-work { background-color: #6C757D; }
+.badge-comic { background-color: rgb(230, 13, 164); }
+.badge-lifestyle { background-color: rgb(0, 123, 255); }
+.badge-mobile { background-color: rgb(40, 167, 69); }
+.badge-motor { background-color: rgb(220, 53, 69); }
+.badge-work { background-color: rgb(108, 117, 125); }
 
 /* Estilos de las tarjetas de anuncios */
 .card { position: relative; }

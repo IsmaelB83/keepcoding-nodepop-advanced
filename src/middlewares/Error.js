@@ -1,10 +1,8 @@
 "use strict";
 
-// Authorization
 module.exports = (error, req, res, next) => {
-    // URL to redirect at the end
-    const backTo = req.get('referer');
-    // Error template
+    console.log(error);
+    // Default error
     const jsonError = {
         status: error.status || 500,
         data: error.description || 'Uncontrolled error'
@@ -14,26 +12,26 @@ module.exports = (error, req, res, next) => {
         const errInfo = error.array({ onlyFirstError: true })[0];
         jsonError.status = 422;
         jsonError.data = `Validation failed: ${errInfo.param} ${errInfo.msg}`;
+    } else if (error.status === 422) {
+        jsonError.data = `Validation failed: ${error.param} ${error.msg}`; 
     }
-    // status 500 si no se indica lo contrario
-    res.status(jsonError.status);
-    // Middleware de la API
+    // API Middleware
     if (isAPI(req)) {
-        return res.json(jsonError);
+        return res.status(jsonError.status).json(jsonError);
     }
-    // set locals, only providing error in development
-    res.locals.message = jsonError.data;
-    res.locals.error = req.app.get('env') === 'development' ? error : {};
-    // render the error page
+    // Render the 404 error page
     if (jsonError.status === 404) {
         return res.render('pages/error404');
     }
+    // Web Version
+    res.locals.message = jsonError.data;
+    res.locals.error = error;
     next({error: jsonError});
 };
 
 /**
- * Chequea si la url de la que proviene el request es de la API o de la Vista 
- * @param {Request} req Request que efectua la llamada al server
+ * Check if URL provides from a request from the API or the Web 
+ * @param {Request} req Request
  */
 function isAPI(req) {
     return req.originalUrl.indexOf('/api') === 0;

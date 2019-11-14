@@ -1,16 +1,16 @@
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'public/images/anuncios/');
+    destination: (req, file, callback) => {
+        callback(null, 'public/images/anuncios/');
     },
-    filename: function(req, file, cb) {
+    filename: (req, file, callback) => {
         let aux = new Date().toLocaleString()
             .replace(new RegExp(' ', 'g'), '')
             .replace(new RegExp('/', 'g'), '')
             .replace(new RegExp(',', 'g'), '')
             .replace(new RegExp(':', 'g'), '');
-        cb(null, `${aux}__${file.originalname}`);
+        callback(null, `${aux}__${file.originalname}`);
     }
 })
 
@@ -18,7 +18,22 @@ const upload = multer({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5 // max 5MB
+    },
+    fileFilter: (req, file, callback) => {
+        switch (file.mimetype) {
+            case 'image/jpeg': 
+            case 'image/jpg': 
+            case 'image/gif': 
+            case 'image/png': 
+                return callback(null,true)
+            default:
+                return callback({
+                    status: 422,
+                    param: `Mimetype ${file.mimetype}`,
+                    msg: 'File not supported'
+                });
+        }
     }
 });
 
-module.exports = upload;
+module.exports = upload.single('photo');

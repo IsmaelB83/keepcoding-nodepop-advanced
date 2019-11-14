@@ -8,7 +8,14 @@ const Config = require('../config');
  * Middleware to control authentication
  */ 
 module.exports = (req, res, next) => {
-    // Auth header is required
+    // Session authentication (web)
+    if (!isAPI(req)) {
+        if (req.session.authUser) {
+            return next();
+        }
+        return res.redirect('/user/login');
+    }
+    // JWT Authentication (API)
     if (!req.headers.authorization) {
         return res.status(401).json({
             status: 404,
@@ -30,3 +37,11 @@ module.exports = (req, res, next) => {
     req.user = token.payload;
     next();
 };
+
+/**
+ * Check if URL provides from a request from the API or the Web 
+ * @param {Request} req Request
+ */
+function isAPI(req) {
+    return req.originalUrl.indexOf('/api') === 0;
+}

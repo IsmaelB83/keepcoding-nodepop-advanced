@@ -4,7 +4,7 @@ const express = require('express');
 const { query, param } = require('express-validator');
 // Own imports
 const { WebAdvertCtrl } = require('../controllers');
-const { SessionAuth } = require('../middlewares');
+const { AuthMiddleware } = require('../middlewares');
 
 
 module.exports = () => {
@@ -31,14 +31,14 @@ module.exports = () => {
             query('skip').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0'),
             query('limit').optional().isInt({ gt: 0 }).withMessage('must be a number greater than 0')
         ],
-        SessionAuth, 
+        AuthMiddleware, 
         WebAdvertCtrl.index); 
     /**
      * Render advert create form
      */
     router.get(
         '/advert/add', 
-        SessionAuth,
+        AuthMiddleware,
         WebAdvertCtrl.addAdvert);
     /**
      * Render advert detail
@@ -47,7 +47,7 @@ module.exports = () => {
         '/advert/:id', 
         [   param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
         ], 
-        SessionAuth, 
+        AuthMiddleware, 
         WebAdvertCtrl.detail);
     
     // Return router

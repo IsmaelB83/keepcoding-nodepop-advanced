@@ -2,7 +2,6 @@
 
 module.exports = {
     ErrorMiddleware: require('./Error'),
-    JwtAuth: require('./Jwt'),
-    SessionAuth: require('./Session'),
+    AuthMiddleware: require('./Auth'),
     MulterMiddleware: require('./Multer')
 }

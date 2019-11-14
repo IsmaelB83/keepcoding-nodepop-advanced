@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 // Own imports
 const { ItemRoutes, UserRoutes, AuthRoutes, WebAdvertRoutes, WebUserRoutes } = require('../routes');
-const { ErrorMiddleware, SessionAuth } = require('../middlewares');
+const { ErrorMiddleware, AuthMiddleware } = require('../middlewares');
 const i18n = require('../utils/i18n')();
 const Config = require('../config');
 
@@ -38,15 +38,14 @@ module.exports = function(app) {
             maxAge: 1000 * 3600 * 24 * 2 // expire time is 2 days
         }
     }));
-    // Routers
+    // Routes web version
     app.use('/', WebAdvertRoutes());
     app.use('/user', WebUserRoutes());
+    // Routes API version
     app.use('/apiv1/anuncios', ItemRoutes());
     app.use('/apiv1/authenticate', AuthRoutes());
     app.use('/apiv1/user', UserRoutes());
-    app.use(SessionAuth, (req, res, next) => {
-        return next({ status: 404, description: 'Not found' })
-    });
+    app.use(AuthMiddleware, (req, res, next) => next({status: 404, description: 'Not found'}));
     // error handler
     app.use(ErrorMiddleware);
     // Retorno la aplicación

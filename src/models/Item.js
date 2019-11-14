@@ -33,7 +33,7 @@ const ItemSchema = new Schema(
         /**
         * Tags del anuncio
         */
-        tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile'], index: true},]
+        tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile', 'comic'], index: true},]
     },
     {
         /**

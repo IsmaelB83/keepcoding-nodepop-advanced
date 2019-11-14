@@ -3,7 +3,7 @@
 const express = require('express');
 // Own imports
 const { WebUserCtrl } = require('../controllers');
-const { SessionAuth } = require('../middlewares');
+const { AuthMiddleware } = require('../middlewares');
 
 
 module.exports = () => {
@@ -16,14 +16,14 @@ module.exports = () => {
      */
     router.get(
         '/change-locale/:locale', 
-        SessionAuth, 
+        AuthMiddleware, 
         WebUserCtrl.changeLocale);
     /**
      * Logout session
      */
     router.get(
         '/logout', 
-        SessionAuth,
+        AuthMiddleware,
         WebUserCtrl.logout);
     /**
      * Tender login form
