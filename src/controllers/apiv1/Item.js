@@ -3,11 +3,15 @@
 const { validationResult } = require('express-validator');
 // Node imports
 const { Item } = require('../../models/');
-const Log = require('../../utils/log');
 
 const ctrl = {};
 
-
+/**
+ * Select adverts from database
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.select = async (req, res, next) => {
     try {
         // Validaciones
@@ -29,11 +33,17 @@ ctrl.select = async (req, res, next) => {
         });
     } catch (error) {
         // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        if (!error.array) console.log(`Uncontrolled error: ${error}`);
         next(error);
     }
 }
 
+/**
+ * Select one advert from database
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.selectOne = async (req, res, next) => {
     try {
         // Validaciones
@@ -50,11 +60,17 @@ ctrl.selectOne = async (req, res, next) => {
         next({ status: 404, error: 'Not Found' });
     } catch (error) {
         // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        if (!error.array) console.log(`Uncontrolled error: ${error}`);
         next(error);
     }
 }
 
+/**
+ * Create advert
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.create = async (req, res, next) => {
     try {
         // Validaciones
@@ -76,11 +92,17 @@ ctrl.create = async (req, res, next) => {
         next({error: 'No se ha podido insertar el anuncio'});
     } catch (error) {
         // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        if (!error.array) console.log(`Uncontrolled error: ${error}`);
         next(error);
     }
 }
 
+/**
+ * Update advert
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.update = async (req, res, next) => {
     try {
         // Validaciones
@@ -101,11 +123,17 @@ ctrl.update = async (req, res, next) => {
         next({ status: 404, error: 'Not Found' });
     } catch (error) {
         // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        if (!error.array) console.log(`Uncontrolled error: ${error}`);
         next(error);
     }
 }
 
+/**
+ * Get all tags from database
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.tags = async (req, res, next) => {
     try {
         // Listado
@@ -122,10 +150,9 @@ ctrl.tags = async (req, res, next) => {
         next({ status: 404, error: 'Not Found' });
     } catch (error) {
         // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        if (!error.array) console.log(`Uncontrolled error: ${error}`);
         next(error);
     }
 }
-
 
 module.exports = ctrl;

@@ -3,7 +3,6 @@
 const { validationResult } = require('express-validator');
 // Own imports
 const { User } = require('../../models');
-const Log = require('../../utils/log');
 
 const ctrl = {};
 
@@ -35,7 +34,7 @@ ctrl.create = async (req, res, next) => {
         // Error
         next('Error creating user');
     } catch (error) {
-        if (!error.array) Log.fatal(`Uncontrolled error: ${error}`);
+        if (!error.array) console.log(`Uncontrolled error: ${error}`);
         next(error);
     }
 }

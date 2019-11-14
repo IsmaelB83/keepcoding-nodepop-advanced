@@ -1,56 +1,17 @@
 'use strict';
 // Node imports
-const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt-nodejs');
-const moment = require('moment');
 // Own imports
-const { Item, User } = require('../models');
-
+const { User } = require('../models');
 
 const ctrl = {};
 
-
-ctrl.index = async (req, res, next) => {
-    // Validaciones
-    validationResult(req).throw();
-    // Busco los anuncios en Mongo
-    Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit),
-        parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
-        // Error
-        if (error) {
-            return next({error});
-        } 
-        // Ok
-        res.render('pages/index',  {
-            success: true,
-            count: results.length,
-            results: results,
-            moment: moment,
-            userName: req.session.authUser.name
-        });
-    });
-}
-
-ctrl.detail = async (req, res, next) => {
-    // Validaciones
-    validationResult(req).throw();
-    // Busco el anuncio por ID
-    let result = await Item.findById(req.params.id);
-    if (result) {
-        return res.render('pages/detail',  {
-            success: true,
-            result: result,
-            moment: moment
-        });
-    }
-    // Si llego aquí es que no se encontró nada
-    res.render('pages/error404')
-}
-
-ctrl.addAdvert = async (req, res, next) => {
-    res.render('pages/add')
-}
-
+/**
+ * Change locale language
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.changeLocale = async (req, res, next) => {
     // Get locale and url to redirect after changing the locale
     const locale = req.params.locale;
@@ -61,10 +22,22 @@ ctrl.changeLocale = async (req, res, next) => {
     res.redirect(backTo);
 }
 
+/**
+ * Render login form
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.formLogin = async (req, res, next) => {
     res.render('pages/login');
 }
 
+/**
+ * After user click on "log in"
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.postLogin = async (req, res, next) => {
     // Get user credentials from form
     const password = req.body.password;
@@ -89,10 +62,17 @@ ctrl.postLogin = async (req, res, next) => {
     res.render('pages/login');
 }
 
+/**
+ * Logout session
+ * @param {Request} req Request web
+ * @param {Response} res Response web
+ * @param {Middleware} next Next middleware
+ */
 ctrl.logout = (req, res, next) => {
     req.session.destroy(() => {
-        res.redirect('/login');
+        res.redirect('/user/login');
     });
 }
+
 
 module.exports = ctrl;

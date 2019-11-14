@@ -5,7 +5,7 @@ const fs = require('fs');
 const database = require('./index');
 const { Item, User } = require('../models');
 const Config = require('../config');
-const log = require('../utils/log');
+
 
 // Inicializar base de datos
 initDB();
@@ -34,11 +34,11 @@ async function initDB() {
         }
         await Item.insertAll(items);
         // Create default user
-        log.info(`Database created with ${items.length} adverts and ${dump.users.length} users.`);
-        log.info('Please start nodepop with "npm start"');
+        console.log(`Database created with ${items.length} adverts and ${dump.users.length} users.`);
+        console.log('Please start nodepop with "npm start"');
     } catch (error) {
         // Error no controlado
-        log.fatal('Uncontrolled error.');
-        log.fatal(error);
+        console.log('Uncontrolled error.');
+        console.log(error);
     }
 }

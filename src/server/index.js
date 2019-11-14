@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 // Own imports
-const { ItemRoutes, UserRoutes, AuthRoutes, WebRoutes } = require('../routes');
+const { ItemRoutes, UserRoutes, AuthRoutes, WebAdvertRoutes, WebUserRoutes } = require('../routes');
 const { ErrorMiddleware, SessionAuth } = require('../middlewares');
 const i18n = require('../utils/i18n')();
 const Config = require('../config');
@@ -39,7 +39,8 @@ module.exports = function(app) {
         }
     }));
     // Routers
-    app.use('/', WebRoutes());
+    app.use('/', WebAdvertRoutes());
+    app.use('/user', WebUserRoutes());
     app.use('/apiv1/anuncios', ItemRoutes());
     app.use('/apiv1/authenticate', AuthRoutes());
     app.use('/apiv1/user', UserRoutes());

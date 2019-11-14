@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // Own imports
-const log = require('../utils/log');
 
 
 /**
@@ -100,8 +99,8 @@ ItemSchema.statics.list = function(name, venta, tag, precio, limit, skip, fields
         queryDB.exec(callback);        
     } catch (error) {
         // Error no controlado
-        log.fatal('Error while executing query.');
-        log.fatal(error); 
+        console.log('Error while executing query.');
+        console.log(error); 
         callback(error);
     }
 }
@@ -114,8 +113,8 @@ ItemSchema.statics.deleteAll = async function() {
         await Item.deleteMany({});
     } catch (error) {
         // Error no controlado
-        log.fatal('Error while deleting advert.');
-        log.fatal(error);
+        console.log('Error while deleting advert.');
+        console.log(error);
     }
 };
 
@@ -127,8 +126,8 @@ ItemSchema.statics.insertAll = async function(items) {
         await Item.insertMany(items);
     } catch (error) {
         // Error no controlado
-        log.fatal('Error while inserting new advert.');
-        log.fatal(error);
+        console.log('Error while inserting new advert.');
+        console.log(error);
     }
 };
 
@@ -156,8 +155,8 @@ ItemSchema.statics.updateItem = async function(id, newItem) {
         return false;
     } catch (error) {
         // Error no controlado
-        log.fatal('Error while inserting new advert.');
-        log.fatal(error);
+        console.log('Error while inserting new advert.');
+        console.log(error);
     }
 };
 

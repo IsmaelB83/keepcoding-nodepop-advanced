@@ -6,7 +6,6 @@ const moment = require('moment');
 // Own imports
 const Config = require('../../config');
 const { User } = require('../../models');
-const Log = require('../../utils/log');
 
 const ctrl = {};
 

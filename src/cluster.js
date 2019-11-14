@@ -8,7 +8,6 @@ const cluster = require('cluster');
 const Config = require('./config');
 const database = require('./database');
 const server = require('./server');
-const log = require('./utils/log');
 
 
 if (cluster.isMaster) {
@@ -38,8 +37,6 @@ if (cluster.isMaster) {
     initServer(app)
 }
 
-// console.log(cluster.workers);
-
 /**
  * Función asincrona para inicializar el servidor
  */
@@ -48,7 +45,6 @@ async function initServer(app) {
         // Conectar a BD
         let connected = await database.connectToMongo(Config.mongodb);
         if (connected === false) {
-            log.fatal('Error connecting mongodb');
             process.exit(1);
         }
         // Si se conecta a mongo se continua con la inicialización del server express
@@ -68,7 +64,7 @@ async function initServer(app) {
         // Arranco el server
         const port = process.env.PORT || Config.port;
         server.listen(port, () => {
-            log.info(`OK - HTTPS Server running on port ${port}`);
+            console.log(`OK - HTTPS Server running on port ${port}`);
         });        
     } catch (error) {
         // Error no controlado

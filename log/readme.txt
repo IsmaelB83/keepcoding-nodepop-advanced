@@ -1,1 +1,0 @@
-This folder will contain the logs registered by the API

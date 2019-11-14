@@ -2,7 +2,8 @@
 
 module.exports = {
     // Web Routes
-    WebRoutes: require('./Web'),
+    WebAdvertRoutes: require('./WebAdvert'),
+    WebUserRoutes: require('./WebUser'),
     // API Routes
     ItemRoutes: require('./apiv1/Item'),
     AuthRoutes: require('./apiv1/Auth'),

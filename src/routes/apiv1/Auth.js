@@ -11,10 +11,12 @@ const { AuthCtrl } = require('../../controllers');
 module.exports = () => {
     const router = express.Router();
     // Login with username/password. It returns the JWT
-    router.post('/', [
-        body('email').isLength({min:3, max: 150}).withMessage('debe estar entre 3 y 150 carácteres'),
-        body('password').isLength({min:8, max: 16}).withMessage('debe estar entre 8 y 16 carácteres'),
-    ], AuthCtrl.login);
+    router.post(
+        '/',
+        [   body('email').isLength({min:3, max: 150}).withMessage('debe estar entre 3 y 150 carácteres'),
+            body('password').isLength({min:8, max: 16}).withMessage('debe estar entre 8 y 16 carácteres'),
+        ], 
+        AuthCtrl.login);
     // Return routes object
     return router;
 }

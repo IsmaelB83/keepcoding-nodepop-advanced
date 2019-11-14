@@ -7,7 +7,7 @@ const fs = require('fs');
 const Config = require('./config');
 const database = require('./database');
 const server = require('./server');
-const log = require('./utils/log');
+
 
 // Crear aplicación express y arrancar el server
 const app = server(express());
@@ -21,7 +21,7 @@ async function initServer(app) {
         // Conectar a BD
         let connected = await database.connectToMongo(Config.mongodb);
         if (connected === false) {
-            log.fatal('Error connecting mongodb');
+            console.log('Error connecting mongodb');
             process.exit(1);
         }
         // Si se conecta a mongo se continua con la inicialización del server express
@@ -41,7 +41,7 @@ async function initServer(app) {
         // Arranco el server
         const port = process.env.PORT || Config.port;
         server.listen(port, () => {
-            log.info(`OK - HTTPS server running on port ${port}`);
+            console.log(`OK - HTTPS server running on port ${port}`);
         });        
     } catch (error) {
         // Error no controlado

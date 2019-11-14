@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Configuración básica de la aplicación
+ */
 module.exports = {
   port: 8443,
   mongodb: "mongodb://localhost:27017/nodepop",

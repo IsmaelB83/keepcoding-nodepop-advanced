@@ -12,7 +12,7 @@
             <div class='login-logo'>
                 <img src='/images/logo.png' alt='logo'>
             </div>
-            <form class='login-form' method='post' action="/login">
+            <form class='login-form' method='post' action="/user/login">
                 <% if (locals.error) { %>
                 <div class='alert alert-danger' role='alert'>
                     <%= locals.status %> - <%= locals.error %>

@@ -1,8 +1,10 @@
 "use strict";
 
+
 module.exports = {
     // Web Controllers
-    WebCtrl: require('./Web'),
+    WebAdvertCtrl: require('./WebAdvert'),
+    WebUserCtrl: require('./WebUser'),
     // API Controllers
     ItemCtrl: require('./apiv1/Item'),
     AuthCtrl: require('./apiv1/Auth'),

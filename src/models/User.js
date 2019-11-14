@@ -3,8 +3,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
-// Own imports
-const Log = require('../utils/log');
 
 
 // User
@@ -44,8 +42,8 @@ UserSchema.statics.insert = async function(user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
         return await user.save();
     } catch (error) {
-        Log.fatal('Error insertando usuarios.');
-        Log.fatal(error);
+        console.log('Error insertando usuarios.');
+        console.log(error);
         return false;
     }
 };
@@ -65,8 +63,8 @@ UserSchema.statics.update = async function(id, newUser) {
         }
         return false;
     } catch (error) {
-        Log.fatal('Error actualizando usuario.');
-        Log.fatal(error);
+        console.log('Error actualizando usuario.');
+        console.log(error);
         return false;
     }
 };
@@ -79,8 +77,8 @@ UserSchema.statics.deleteAll = async function() {
         await User.deleteMany({});
     } catch (error) {
         // Error no controlado
-        Log.fatal('Error while deleting users.');
-        Log.fatal(error);
+        console.log('Error while deleting users.');
+        console.log(error);
     }
 };
 
