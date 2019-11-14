@@ -1,7 +1,6 @@
 "use strict";
 // Node imports
 const jwt = require('jsonwebtoken');
-const moment = require('moment');
 // Own imports
 const Config = require('../config'); 
 
@@ -13,7 +12,7 @@ module.exports = (req, res, next) => {
     if (!req.headers.authorization) {
         return res.status(401).json({
             status: 404,
-            data: `Not Authorized: ${error}`
+            data: 'Not Authorized'
         });
     }
     // Check JWT is expired
@@ -24,7 +23,7 @@ module.exports = (req, res, next) => {
     if (now.getTime() >= expire.getTime()) {
         return res.status(401).json({
             status: 404,
-            data: `Not Authorized: ${error}`
+            data: 'Not Authorized'
         });
     }
     // User authenticated continue with next middleware

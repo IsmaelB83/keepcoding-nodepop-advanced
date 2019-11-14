@@ -61,6 +61,9 @@ ctrl.create = async (req, res, next) => {
         validationResult(req).throw();
         // Nuevo anuncio
         let item = new Item({...req.body});
+        if (req.file) {
+            item.photo = `/images/anuncios/${req.file.filename}`;
+        }
         item = await item.save();
         if (item) {
             res.json({
@@ -84,6 +87,9 @@ ctrl.update = async (req, res, next) => {
         validationResult(req).throw();
         // Actualizo el anuncio y retorno el item actualizado
         let item = await Item.updateItem(req.params.id, new Item({...req.body}));
+        if (req.file) {
+            item.photo = `/images/anuncios/${req.file.filename}`;
+        }
         if (item) {
             res.json({
                 success: true,

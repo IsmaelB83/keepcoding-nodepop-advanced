@@ -24,8 +24,7 @@ module.exports = function(app) {
     // Middlewares
     app.use(cors());
     app.use(morgan('dev'));
-    app.use(express.urlencoded({extended: false}));
-    app.use(express.json());
+    app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(cookieParser());
     app.use(i18n.init);

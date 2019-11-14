@@ -1,7 +1,8 @@
 "use strict";
 
 module.exports = {
-    ErrorMiddleware: require('./error'),
-    JwtAuth: require('./jwtAuth'),
-    SessionAuth: require('./sessionAuth'),
+    ErrorMiddleware: require('./Error'),
+    JwtAuth: require('./Jwt'),
+    SessionAuth: require('./Session'),
+    MulterMiddleware: require('./Multer')
 }
