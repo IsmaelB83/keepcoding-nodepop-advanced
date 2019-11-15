@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 // Own imports
-const Config = require('../../config');
 const { User } = require('../../models');
+const Config = require('../../config');
 
 /**
  * Controller object

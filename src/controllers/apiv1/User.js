@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 // Own imports
 const { User } = require('../../models');
 
+
 /**
  * Controller object
  */
@@ -23,22 +24,32 @@ module.exports = {
             let user = await User.findOne({email: req.body.email});
             if (user) {
                 // Error
-                return next('Error creating user: email already exists');
+                return next({
+                    status: 400,
+                    description: 'Error creating user: email already exists'
+                });
             }
             // User creation
             user = await User.insert(new User({...req.body}));
             if (user) {
                 // Ok
                 return res.status(201).json({
-                    success: true,
                     description: 'User created successfully',
+                    user: {
+                        id: user._doc._id,
+                        name: user._doc.name,
+                        email: user._doc.email
+                    }
                 });
             }
             // Error
-            next('Error creating user');
+            next({
+                status: 400,
+                description: 'Error creating user'
+            });
         } catch (error) {
             if (!error.array) console.log(`Uncontrolled error: ${error}`);
             next(error);
         }
-    }
+    },
 }

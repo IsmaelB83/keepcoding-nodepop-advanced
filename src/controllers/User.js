@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 // Own imports
 const { User } = require('../models');
 
+
 /**
  * Controller object
  */

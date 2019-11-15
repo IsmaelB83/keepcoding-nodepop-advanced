@@ -24,19 +24,22 @@ module.exports = () => {
     router.get(
         '/logout', 
         AuthMiddleware,
-        WebUserCtrl.logout);
+        WebUserCtrl.logout
+    );
     /**
-     * Tender login form
+     * Render login form
      */
     router.get(
         '/login', 
-        WebUserCtrl.formLogin);
+        WebUserCtrl.formLogin
+    );
     /**
      * Login session
      */
     router.post(
         '/login', 
-        WebUserCtrl.postLogin);
+        WebUserCtrl.postLogin
+    );
     
     // Return router
     return router;

@@ -13,10 +13,10 @@ const database = {
                                 useUnifiedTopology: true,
                                 useNewUrlParser: true 
                             });
-                            return true;
+                            return mongoose.connection;
                         } catch (error) {
                             console.log(`Error connecting to mongodb ${error.errno} ${error.address}:${error.port}.`);
-                            return false;
+                            return null;
                         }
                     },
 }

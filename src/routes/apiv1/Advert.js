@@ -4,7 +4,7 @@ const express = require('express');
 const { query, param, body } = require('express-validator');
 // Own imports
 const { AuthMiddleware } = require('../../middlewares');
-const { ItemCtrl } = require('../../controllers');
+const { AdvertCtrl } = require('../../controllers');
 const { MulterMiddleware } = require('../../middlewares')
 
 
@@ -28,13 +28,13 @@ module.exports = () => {
                 return result;
             }).withMessage('must be numeric'),
         ],
-        ItemCtrl.select);
+        AdvertCtrl.select);
     router.get(
         '/:id', 
         AuthMiddleware, 
         [   param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
         ], 
-        ItemCtrl.selectOne);
+        AdvertCtrl.selectOne);
     router.put(
         '/:id', 
         AuthMiddleware,
@@ -43,7 +43,7 @@ module.exports = () => {
             body('name').optional().isLength({min:1, max: 30}).withMessage('value must be between 1 and 30 characteres length'),
             body('description').optional().optional().isLength({min:0, max: 100}).withMessage('length must be between 1 and 100 characters'),
         ],
-        ItemCtrl.update);
+        AdvertCtrl.update);
     router.post(
         '/', 
         AuthMiddleware,
@@ -52,12 +52,12 @@ module.exports = () => {
             body('description').optional().isLength({min:0, max: 100}).withMessage('length must be between 1 and 100 characters'),
             body('price').isNumeric().withMessage('must be numeric')
         ], 
-        ItemCtrl.create);
+        AdvertCtrl.create);
     // Rutas de tags
     router.get(
         '/tags', 
         AuthMiddleware, 
-        ItemCtrl.tags);
+        AdvertCtrl.tags);
     // Retorno el router
     return router;
 }

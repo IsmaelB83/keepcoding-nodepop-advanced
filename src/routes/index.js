@@ -2,10 +2,10 @@
 
 module.exports = {
     // Web Routes
-    WebAdvertRoutes: require('./WebAdvert'),
-    WebUserRoutes: require('./WebUser'),
+    WebUserRoutes: require('./User'),
+    WebAdvertRoutes: require('./Advert'),
     // API Routes
-    ItemRoutes: require('./apiv1/Item'),
     AuthRoutes: require('./apiv1/Auth'),
     UserRoutes: require('./apiv1/User'),
+    AdvertRoutes: require('./apiv1/Advert'),
 }

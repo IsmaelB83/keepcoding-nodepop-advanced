@@ -2,8 +2,8 @@
 // Own imports
 const { validationResult } = require('express-validator');
 // Node imports
-const { Item } = require('../../models/');
-const { jimpConfig } = require('../../utils/');
+const { Item } = require('../../models');
+const { jimpConfig } = require('../../utils');
 
 /**
  * Controller object
