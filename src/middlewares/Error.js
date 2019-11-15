@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = (error, req, res, next) => {
-    console.log(error);
     // Default error
     const jsonError = {
         status: error.status || 500,

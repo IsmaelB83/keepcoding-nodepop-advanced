@@ -1,6 +1,8 @@
 <div class='card'>
-    <img src='<%= advert.type === 'buy' ? '/images/buy.png' : '/images/sell.png' %>' class='card-icon' alt='icon'>
-    <img src='<%= advert.photo %>' class='card-img-top' alt='...'>
+    <img src='<%= advert.type === 'buy' ? '/images/static/buy.png' : '/images/static/sell.png' %>' class='card-icon' alt='icon'>
+    <a href='<%= advert.photo%>'>
+        <img src='<%= advert.thumbnail %>' class='card-img-top' alt='...'>
+    </a>
     <span class='price'><%= advert.price.toFixed(2) %> €</span>
     <div class='card-body text-justify'>
         <h5 class='card-title text-uppercase mb-1 font-weight-bold'>

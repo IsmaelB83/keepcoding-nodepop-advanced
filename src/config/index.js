@@ -1,4 +1,7 @@
 'use strict';
+// Node imports
+const path = require('path');
+
 
 /**
  * Configuración básica de la aplicación
@@ -14,5 +17,5 @@ module.exports = {
   dev: {
     key: './certs/example.com+5-key.pem',
     cert: './certs/example.com+5.pem'
-  }
+  },
 }

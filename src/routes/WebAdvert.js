@@ -34,13 +34,6 @@ module.exports = () => {
         AuthMiddleware, 
         WebAdvertCtrl.index); 
     /**
-     * Render advert create form
-     */
-    router.get(
-        '/advert/add', 
-        AuthMiddleware,
-        WebAdvertCtrl.addAdvert);
-    /**
      * Render advert detail
      */
     router.get(

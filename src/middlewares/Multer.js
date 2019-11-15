@@ -2,7 +2,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, 'public/images/anuncios/');
+        callback(null, 'public/images/adverts/original');
     },
     filename: (req, file, callback) => {
         let aux = new Date().toLocaleString()
@@ -22,7 +22,7 @@ const upload = multer({
     fileFilter: (req, file, callback) => {
         switch (file.mimetype) {
             case 'image/jpeg': 
-            case 'image/jpg': 
+            case 'image/bmp': 
             case 'image/gif': 
             case 'image/png': 
                 return callback(null,true)

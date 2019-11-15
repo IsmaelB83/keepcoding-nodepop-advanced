@@ -30,7 +30,9 @@ async function initDB() {
         // Create default adverts
         const items = [];
         for (let i = 0; i < dump.anuncios.length; i++) {
-            items.push (new Item({...dump.anuncios[i]}));
+            const item = new Item({...dump.anuncios[i]});
+            item.thumbnail = item.photo; // Default thumbnail is the original photo
+            items.push (item);
         }
         await Item.insertAll(items);
         // Create default user

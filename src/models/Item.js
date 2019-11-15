@@ -31,6 +31,10 @@ const ItemSchema = new Schema(
         */
         photo: { type: String, required: true },
         /**
+        * Thumbnail
+        */
+       thumbnail: { type: String, required: true },
+        /**
         * Tags del anuncio
         */
         tags: [{ type: String, enum: ['work', 'lifestyle', 'motor', 'mobile', 'comic'], index: true},]
@@ -145,7 +149,10 @@ ItemSchema.statics.updateItem = async function(id, newItem) {
             item.name = newItem.name?newItem.name:item.name;
             item.price = newItem.price?newItem.price:item.price;
             item.type = newItem.type?newItem.type:item.type;
-            item.photo = newItem.photo?newItem.photo:item.photo;
+            if (newItem.photo) {
+                item.photo = newItem.photo;
+                item.thumbnail = newItem.photo;
+            }
             item.tags = newItem.tags?newItem.tags:item.tags;
             item.description = newItem.description?newItem.description:item.description;
             // Salvo datos en mongo

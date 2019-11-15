@@ -8,7 +8,6 @@ const Config = require('./config');
 const database = require('./database');
 const server = require('./server');
 
-
 // Crear aplicación express y arrancar el server
 const app = server(express());
 initServer(app)

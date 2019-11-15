@@ -5,65 +5,57 @@ const moment = require('moment');
 // Own imports
 const { Item } = require('../models');
 
-const ctrl = {};
-
 /**
- * Render home page with the list of adverts
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
+ * Controller object
  */
-ctrl.index = async (req, res, next) => {
-    // Validaciones
-    validationResult(req).throw();
-    // Busco los anuncios en Mongo
-    Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit),
-        parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
-        // Error
-        if (error) {
-            return next({error});
-        } 
-        // Ok
-        res.render('pages/index',  {
-            success: true,
-            count: results.length,
-            results: results,
-            moment: moment,
-            userName: req.session.authUser.name
-        });
-    });
-}
+module.exports = {
 
-/**
- * Render advert detail
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
- */
-ctrl.detail = async (req, res, next) => {
-    // Validaciones
-    validationResult(req).throw();
-    // Busco el anuncio por ID
-    let result = await Item.findById(req.params.id);
-    if (result) {
-        return res.render('pages/detail',  {
-            success: true,
-            result: result,
-            moment: moment
+    /**
+     * Render home page with the list of adverts
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    index: async (req, res, next) => {
+        // Validaciones
+        validationResult(req).throw();
+        // Busco los anuncios en Mongo
+        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit),
+            parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
+            // Error
+            if (error) {
+                return next({error});
+            } 
+            // Ok
+            res.render('pages/index',  {
+                success: true,
+                count: results.length,
+                results: results,
+                moment: moment,
+                userName: req.session.authUser.name
+            });
         });
+    },
+
+    /**
+     * Render advert detail
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    detail: async (req, res, next) => {
+        // Validaciones
+        validationResult(req).throw();
+        // Busco el anuncio por ID
+        let result = await Item.findById(req.params.id);
+        if (result) {
+            return res.render('pages/detail',  {
+                success: true,
+                result: result,
+                moment: moment
+            });
+        }
+        // Si llego aquí es que no se encontró nada
+        res.render('pages/error404')
     }
-    // Si llego aquí es que no se encontró nada
-    res.render('pages/error404')
 }
-
-/**
- * Render add advert form page
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
- */
-ctrl.addAdvert = async (req, res, next) => {
-    res.render('pages/add')
-}
-
-module.exports = ctrl;

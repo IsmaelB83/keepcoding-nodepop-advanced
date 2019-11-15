@@ -1,158 +1,170 @@
 'use strict';
 // Own imports
 const { validationResult } = require('express-validator');
+var Jimp = require('jimp');
 // Node imports
 const { Item } = require('../../models/');
 
-const ctrl = {};
-
 /**
- * Select adverts from database
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
+ * Controller object
  */
-ctrl.select = async (req, res, next) => {
-    try {
-        // Validaciones
-        validationResult(req).throw();
-        // Listado
-        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit), 
-            parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
-            // Error
-            if (error) {
+module.exports = {
+    
+    /**
+     * Select adverts from database
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    select: async (req, res, next) => {
+        try {
+            // Validations
+            validationResult(req).throw();
+            // Get Adverts
+            Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit), 
+                parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
+                if (!error) {
+                    // Ok
+                    return res.json({
+                        success: true,
+                        count: results.length,
+                        results: results
+                    });
+                }
+                // Error
                 next({error});
-                return;
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    /**
+     * Select one advert from database
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    selectOne: async (req, res, next) => {
+        try {
+            // Validations
+            validationResult(req).throw();
+            // Get one advert
+            let item = await Item.findById(req.params.id);   
+            if (item) {
+                // Ok
+                return res.json({
+                    success: true, 
+                    result: item
+                });
+            }   
+            // Error
+            next({ status: 404, error: 'Not Found' });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    /**
+     * Create advert
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    create: async (req, res, next) => {
+        try {
+            // Validations
+            validationResult(req).throw();
+            // New Advert
+            let item = new Item({...req.body});
+            if (req.file) {
+                item.photo = `/images/adverts/original/${req.file.filename}`;
+                item.thumbnail = item.photo; // Initially thumbnail refers to the same photo
             }
-            // Ok
-            res.json({
-                success: true,
-                count: results.length,
-                results: results
-            });
-        });
-    } catch (error) {
-        // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) console.log(`Uncontrolled error: ${error}`);
-        next(error);
+            item = await item.save();
+            if (item) {
+                // Thumbnail name
+                let thumbnail = item.photo;
+                thumbnail = thumbnail.replace('__','_SM_');
+                thumbnail = thumbnail.replace('/original/','/thumbnail/');
+                // Resize
+                Jimp.read(`public${item.photo}`)
+                .then(lenna => {
+                    // Create thumbnail
+                    lenna.resize(256, 256).quality(60).write(`public${thumbnail}`);
+                    // Save item
+                    item.thumbnail = thumbnail;
+                    item.save();
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+                // Ok
+                return res.json({
+                    success: true, 
+                    result: item
+                });
+            }
+            // Error
+            next({error: 'No se ha podido insertar el anuncio'});
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    /**
+     * Update advert
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    update: async (req, res, next) => {
+        try {
+            // Validations
+            validationResult(req).throw();
+            // Update advert
+            let item = new Item({...req.body});
+            if (req.file) {
+                item.photo = `/images/anuncios/${req.file.filename}`;
+                item.thumbnail = img.photo; // Initially the thumbnail points to the same photo
+            }
+            item = await Item.updateItem(req.params.id, item);
+            if (item) {
+                // Ok
+                return res.json({
+                    success: true,
+                    result: item
+                });
+            }
+            // Error
+            next({ status: 404, error: 'Not Found' });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    /**
+     * Get all tags from database
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    tags: async (req, res, next) => {
+        try {
+            // List of tags
+            let results = await Item.find().distinct('tags');
+            if (results) {
+                // Ok
+                return res.json({
+                    success: true,
+                    count: results.length,
+                    results: results
+                });
+            }
+            // Error
+            next({ status: 404, error: 'Not Found' });
+        } catch (error) {
+            next(error);
+        }
     }
 }
-
-/**
- * Select one advert from database
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
- */
-ctrl.selectOne = async (req, res, next) => {
-    try {
-        // Validaciones
-        validationResult(req).throw();
-        let item = await Item.findById(req.params.id);   
-        if (item) {
-            res.json({
-                success: true, 
-                result: item
-            });
-            return;
-        }   
-        // Si llegamos aquí es que no se ha encontrado un resultado
-        next({ status: 404, error: 'Not Found' });
-    } catch (error) {
-        // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) console.log(`Uncontrolled error: ${error}`);
-        next(error);
-    }
-}
-
-/**
- * Create advert
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
- */
-ctrl.create = async (req, res, next) => {
-    try {
-        // Validaciones
-        validationResult(req).throw();
-        // Nuevo anuncio
-        let item = new Item({...req.body});
-        if (req.file) {
-            item.photo = `/images/anuncios/${req.file.filename}`;
-        }
-        item = await item.save();
-        if (item) {
-            res.json({
-                success: true, 
-                result: item
-            });
-            return;
-        }
-        // Si se ha llegado hasta aquí es que no se ha podido insertar
-        next({error: 'No se ha podido insertar el anuncio'});
-    } catch (error) {
-        // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) console.log(`Uncontrolled error: ${error}`);
-        next(error);
-    }
-}
-
-/**
- * Update advert
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
- */
-ctrl.update = async (req, res, next) => {
-    try {
-        // Validaciones
-        validationResult(req).throw();
-        // Actualizo el anuncio y retorno el item actualizado
-        let item = await Item.updateItem(req.params.id, new Item({...req.body}));
-        if (req.file) {
-            item.photo = `/images/anuncios/${req.file.filename}`;
-        }
-        if (item) {
-            res.json({
-                success: true,
-                result: item
-            });
-            return;
-        }
-        // Si llegamos aquí es que no se ha encontrado un resultado
-        next({ status: 404, error: 'Not Found' });
-    } catch (error) {
-        // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) console.log(`Uncontrolled error: ${error}`);
-        next(error);
-    }
-}
-
-/**
- * Get all tags from database
- * @param {Request} req Request web
- * @param {Response} res Response web
- * @param {Middleware} next Next middleware
- */
-ctrl.tags = async (req, res, next) => {
-    try {
-        // Listado
-        let results = await Item.find().distinct('tags');
-        if (results) {
-            res.json({
-                success: true,
-                count: results.length,
-                results: results
-            });
-            return;
-        }
-        // Si llegamos aquí es que no se ha encontrado un resultado
-        next({ status: 404, error: 'Not Found' });
-    } catch (error) {
-        // Los errores de validación de usuario NO me interesa loguerarlos
-        if (!error.array) console.log(`Uncontrolled error: ${error}`);
-        next(error);
-    }
-}
-
-module.exports = ctrl;
