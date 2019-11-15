@@ -1,9 +1,9 @@
 'use strict';
 // Own imports
 const { validationResult } = require('express-validator');
-var Jimp = require('jimp');
 // Node imports
 const { Item } = require('../../models/');
+const { jimpConfig } = require('../../utils/');
 
 /**
  * Controller object
@@ -83,21 +83,11 @@ module.exports = {
             }
             item = await item.save();
             if (item) {
-                // Thumbnail name
-                let thumbnail = item.photo;
-                thumbnail = thumbnail.replace('__','_SM_');
-                thumbnail = thumbnail.replace('/original/','/thumbnail/');
-                // Resize
-                Jimp.read(`public${item.photo}`)
-                .then(lenna => {
-                    // Create thumbnail
-                    lenna.resize(256, 256).quality(60).write(`public${thumbnail}`);
-                    // Save item
+                // Generate thumbnail
+                jimpConfig(item.photo, (thumbnail) => {
+                    // Update model
                     item.thumbnail = thumbnail;
                     item.save();
-                })
-                .catch(err => {
-                    console.error(err);
                 });
                 // Ok
                 return res.json({

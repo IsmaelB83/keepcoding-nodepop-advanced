@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
 */
 const ItemSchema = new Schema(
     {  
-        /**
+       /**
         * Nombre del articulo en compra/venta
         */
         name: { type: String, required: true, max: 30, index: true },
@@ -33,7 +33,7 @@ const ItemSchema = new Schema(
         /**
         * Thumbnail
         */
-       thumbnail: { type: String, required: true },
+        thumbnail: { type: String, required: true },
         /**
         * Tags del anuncio
         */

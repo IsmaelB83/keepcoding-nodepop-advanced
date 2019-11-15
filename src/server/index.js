@@ -10,7 +10,7 @@ const session = require('express-session')
 // Own imports
 const { ItemRoutes, UserRoutes, AuthRoutes, WebAdvertRoutes, WebUserRoutes } = require('../routes');
 const { ErrorMiddleware, AuthMiddleware } = require('../middlewares');
-const i18n = require('../utils/i18n')();
+const { i18nConfig } = require('../utils/');
 const Config = require('../config');
 
 
@@ -27,7 +27,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(cookieParser());
-    app.use(i18n.init);
+    app.use(i18nConfig().init);
     app.use(session({
         name: 'nodeapi-session',
         secret: Config.secret,
