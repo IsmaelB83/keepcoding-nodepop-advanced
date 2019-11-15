@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 // Own imports
 const { User } = require('../../models');
-const Config = require('../../config');
 
 /**
  * Controller object
@@ -30,7 +29,7 @@ module.exports = {
                     email: user.email,
                     expires: moment().add(60, 'minutes')
                 };
-                const jwtoken = jwt.sign({payload}, Config.secret);
+                const jwtoken = jwt.sign({payload}, process.env.SECRET);
                 user.jwt = jwtoken;
                 // Save JWT in the database
                 user.save();

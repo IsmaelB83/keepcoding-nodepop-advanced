@@ -4,7 +4,6 @@ const fs = require('fs');
 // Own imports
 const database = require('./index');
 const { Item, User } = require('../models');
-const Config = require('../config');
 
 
 // Inicializar base de datos
@@ -16,7 +15,7 @@ initDB();
 async function initDB() {
     try {
         // Conecto a la base de datos
-        await database.connectToMongo(Config.mongodb);
+        await database.connectToMongo(process.env.MONGODB_URL);
         // Borro los datos de la colección de anuncion
         await Item.deleteAll();
         await User.deleteAll();

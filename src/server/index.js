@@ -12,7 +12,6 @@ const MongoStore = require('connect-mongo')(session);  // persist web session in
 const { AuthRoutes, UserRoutes, AdvertRoutes, WebUserRoutes, WebAdvertRoutes } = require('../routes');
 const { ErrorMiddleware, AuthMiddleware } = require('../middlewares');
 const { i18nConfig } = require('../utils/');
-const Config = require('../config');
 
 
 module.exports = function(app, conn) {
@@ -31,7 +30,7 @@ module.exports = function(app, conn) {
     app.use(i18nConfig().init);
     app.use(session({
         name: 'nodeapi-session',
-        secret: Config.secret,
+        secret: process.env.SECRET,
         resave: false,
         saveUninitialized: true,
         cookie: { 

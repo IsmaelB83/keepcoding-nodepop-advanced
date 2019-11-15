@@ -5,6 +5,7 @@ const { validationResult } = require('express-validator');
 const { Item } = require('../../models');
 const { jimpConfig } = require('../../utils');
 
+
 /**
  * Controller object
  */

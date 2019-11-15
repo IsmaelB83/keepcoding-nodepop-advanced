@@ -2,7 +2,6 @@
 // Node imports
 const jwt = require('jsonwebtoken');
 // Own imports
-const Config = require('../config'); 
 
 /**
  * Middleware to control authentication
@@ -24,7 +23,7 @@ module.exports = (req, res, next) => {
     }
     // Check JWT is expired
     req.token = req.headers.authorization.split(' ')[1];
-    const token = jwt.decode(req.token, Config.secret);
+    const token = jwt.decode(req.token, process.env.SECRET);
     const now = new Date();
     const expire = new Date(token.payload.expires);
     if (now.getTime() >= expire.getTime()) {
