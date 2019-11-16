@@ -18,8 +18,12 @@ database.connectToMongo(process.env.MONGODB_URL)
     const dump = JSON.parse(fs.readFileSync('./src/database/data.json', 'utf8'));
     // Create default user
     for (let i = 0; i < dump.users.length; i++) {
-        const user = new User(dump.users[i]);
-        await User.insert(user);
+        let user = new User(dump.users[i]);
+        user = await User.insert(user);
+        user.active = true;
+        user.token = null;
+        user.expire = null;
+        await user.save();
     }
     // Create default adverts
     const adverts = [];
