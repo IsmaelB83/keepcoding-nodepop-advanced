@@ -131,7 +131,23 @@ Al mismo tiempo es necesario que arranquemos el microservicio encargado de gener
 ## REST API
 
 ### Authenticacion
-...
+Las rutas de anuncios de la API están securizadas mediante JWT. Para conseguir el token que da acceso al resto de rutas de la API es necesario autenticar mediante el siguiente endpoint (tipo POST). En el body hay que pasar el email y el password:
+```
+https://localhost:8443/apiv1/authenticate
+```
+El resultado de la llamada proporcionará el JWT a utilizar en el resto de llamadas. Los tokens tienen una vida de expiración de 60 minutos:
+
+```js
+{
+    "success": true,
+    "description": "Authorization successful",
+    "user": {
+        "name": "Ismael",
+        "email": "user@example.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7Im5hbWUiOiJJc21hZWwiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHBpcmVzIjoiMjAxOS0xMS0xNlQxNTowMzozNi41MDNaIn0sImlhdCI6MTU3MzkxMzAxNn0.kvYabTTHmJ_s1RoTd2-rp7km9eDEKE_Q4z1hYx4Mo-8"
+    }
+}
+```
 
 ### Anuncios
 Hay un total de 20 anuncios en el script de carga proporcionado.
