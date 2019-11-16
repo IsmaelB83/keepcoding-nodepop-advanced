@@ -2,8 +2,8 @@
 // Own imports
 const { validationResult } = require('express-validator');
 // Node imports
-const { Item } = require('../../models');
-const { jimpConfig } = require('../../utils');
+const Sender = require('../../services/sender');
+const { Advert } = require('../../models');
 
 
 /**
@@ -22,7 +22,7 @@ module.exports = {
             // Validations
             validationResult(req).throw();
             // Get Adverts
-            Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit), 
+            Advert.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit), 
                 parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
                 if (!error) {
                     // Ok
@@ -51,12 +51,12 @@ module.exports = {
             // Validations
             validationResult(req).throw();
             // Get one advert
-            let item = await Item.findById(req.params.id);   
-            if (item) {
+            let advert = await Advert.findById(req.params.id);   
+            if (advert) {
                 // Ok
                 return res.json({
                     success: true, 
-                    result: item
+                    result: advert
                 });
             }   
             // Error
@@ -77,23 +77,19 @@ module.exports = {
             // Validations
             validationResult(req).throw();
             // New Advert
-            let item = new Item({...req.body});
+            let advert = new Advert({...req.body});
             if (req.file) {
-                item.photo = `/images/adverts/original/${req.file.filename}`;
-                item.thumbnail = item.photo; // Initially thumbnail refers to the same photo
+                advert.photo = `/images/adverts/original/${req.file.filename}`;
+                advert.thumbnail = advert.photo; // Initially thumbnail refers to the same photo
             }
-            item = await item.save();
-            if (item) {
-                // Generate thumbnail
-                jimpConfig(item.photo, (thumbnail) => {
-                    // Update model
-                    item.thumbnail = thumbnail;
-                    item.save();
-                });
+            advert = await advert.save();
+            if (advert) {
+                // Send work to rabbitmq
+                Sender(advert.photo, advert._id);
                 // Ok
                 return res.json({
                     success: true, 
-                    result: item
+                    result: advert
                 });
             }
             // Error
@@ -114,17 +110,17 @@ module.exports = {
             // Validations
             validationResult(req).throw();
             // Update advert
-            let item = new Item({...req.body});
+            let advert = new Advert({...req.body});
             if (req.file) {
-                item.photo = `/images/anuncios/${req.file.filename}`;
-                item.thumbnail = img.photo; // Initially the thumbnail points to the same photo
+                advert.photo = `/images/anuncios/${req.file.filename}`;
+                advert.thumbnail = img.photo; // Initially the thumbnail points to the same photo
             }
-            item = await Item.updateItem(req.params.id, item);
-            if (item) {
+            advert = await Advert.updateAdvert(req.params.id, advert);
+            if (advert) {
                 // Ok
                 return res.json({
                     success: true,
-                    result: item
+                    result: advert
                 });
             }
             // Error
@@ -143,7 +139,7 @@ module.exports = {
     tags: async (req, res, next) => {
         try {
             // List of tags
-            let results = await Item.find().distinct('tags');
+            let results = await Advert.find().distinct('tags');
             if (results) {
                 // Ok
                 return res.json({

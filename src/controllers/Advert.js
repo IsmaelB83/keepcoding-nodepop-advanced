@@ -3,7 +3,7 @@
 const { validationResult } = require('express-validator');
 const moment = require('moment');
 // Own imports
-const { Item } = require('../models');
+const { Advert } = require('../models');
 
 /**
  * Controller object
@@ -20,7 +20,7 @@ module.exports = {
         // Validaciones
         validationResult(req).throw();
         // Busco los anuncios en Mongo
-        Item.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit),
+        Advert.list(req.query.name, req.query.venta, req.query.tag, req.query.price, parseInt(req.query.limit),
             parseInt(req.query.skip), req.query.fields, req.query.sort, function(error, results) {
             // Error
             if (error) {
@@ -47,7 +47,7 @@ module.exports = {
         // Validaciones
         validationResult(req).throw();
         // Busco el anuncio por ID
-        let result = await Item.findById(req.params.id);
+        let result = await Advert.findById(req.params.id);
         if (result) {
             return res.render('pages/detail',  {
                 success: true,

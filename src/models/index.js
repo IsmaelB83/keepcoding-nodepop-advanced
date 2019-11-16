@@ -1,6 +1,6 @@
 "use strict";
 
 module.exports = {
-    Item: require('./Item'),
+    Advert: require('./Advert'),
     User: require('./User'),
 }

@@ -6,19 +6,14 @@ const mongoose = require('mongoose');
 
 const database = {
     connectToMongo: async (connection) => {
-                        try {
-                            // Conecto a la base de datos
-                            mongoose.set('useCreateIndex', true);
-                            let db = await mongoose.connect(connection, { 
-                                useUnifiedTopology: true,
-                                useNewUrlParser: true 
-                            });
-                            return mongoose.connection;
-                        } catch (error) {
-                            console.log(`Error connecting to mongodb ${error.errno} ${error.address}:${error.port}.`);
-                            return null;
-                        }
-                    },
+        // Conecto a la base de datos
+        mongoose.set('useCreateIndex', true);
+        await mongoose.connect(connection, { 
+            useUnifiedTopology: true,
+            useNewUrlParser: true 
+        });
+        return mongoose.connection;
+    },
 }
 
 module.exports = database;

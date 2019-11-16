@@ -8,7 +8,8 @@
     "start": "node ./src/index.js $PORT",
     "dev": "cross-env DEBUG=nodepop:* nodemon",
     "prod": "cross-env NODE_ENV=production npm start",
-    "cluster": "cross-env DEBUG=nodepop:* node ./src/cluster.js"
+    "cluster": "cross-env DEBUG=nodepop:* node ./src/cluster.js",
+    "worker": "nodemon ./src/services/worker.js"
   },
   "repository": {
     "type": "git",

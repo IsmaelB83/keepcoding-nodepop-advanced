@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
-
-// User
+/**
+ * User Schema in the database
+ */
 const UserSchema = new Schema(
     {   /**
          * User name

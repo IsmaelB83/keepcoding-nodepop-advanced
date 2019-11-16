@@ -4,7 +4,7 @@ module.exports = (error, req, res, next) => {
     // Default error
     const jsonError = {
         status: error.status || 500,
-        data: error.description || 'Uncontrolled error'
+        data: error.description || error.message || 'Uncontrolled error'
     }
     // Validation errors
     if (error.array) { 
@@ -35,3 +35,4 @@ module.exports = (error, req, res, next) => {
 function isAPI(req) {
     return req.originalUrl.indexOf('/api') === 0;
 }
+ 

@@ -2,13 +2,12 @@
 // Node imports
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// Own imports
 
 
 /**
-* Anuncio en nodepop
+* Advert in the database
 */
-const ItemSchema = new Schema(
+const AdvertSchema = new Schema(
     {  
        /**
         * Nombre del articulo en compra/venta
@@ -64,7 +63,7 @@ const ItemSchema = new Schema(
 * http://localhost:3001/apiv1/anuncios?fields=name
 * http://localhost:3001/apiv1/anuncios?fields=-_id
 */
-ItemSchema.statics.list = function(name, venta, tag, precio, limit, skip, fields, sort, callback) {
+AdvertSchema.statics.list = function(name, venta, tag, precio, limit, skip, fields, sort, callback) {
     try {
         // Genero filtrado
         let filter = {}
@@ -84,7 +83,7 @@ ItemSchema.statics.list = function(name, venta, tag, precio, limit, skip, fields
             }
         }
         // Realizo la query a Mongo
-        let queryDB = Item.find(filter);
+        let queryDB = Advert.find(filter);
         queryDB.limit(limit);
         queryDB.skip(skip);
         queryDB.select(fields);
@@ -112,9 +111,9 @@ ItemSchema.statics.list = function(name, venta, tag, precio, limit, skip, fields
 /**
 * Función estática para eliminar todos los anuncios
 */
-ItemSchema.statics.deleteAll = async function() {
+AdvertSchema.statics.deleteAll = async function() {
     try {
-        await Item.deleteMany({});
+        await Advert.deleteMany({});
     } catch (error) {
         // Error no controlado
         console.log('Error while deleting advert.');
@@ -125,9 +124,9 @@ ItemSchema.statics.deleteAll = async function() {
 /**
 * Función estática para insertar varios anuncios al mismo tiempo
 */
-ItemSchema.statics.insertAll = async function(items) {
+AdvertSchema.statics.insertAll = async function(adverts) {
     try {
-        await Item.insertMany(items);
+        await Advert.insertMany(adverts);
     } catch (error) {
         // Error no controlado
         console.log('Error while inserting new advert.');
@@ -138,26 +137,29 @@ ItemSchema.statics.insertAll = async function(items) {
 /**
 * Función estática para actualizar los datos de un anuncio
 * @param {String} id ID que representa a un anuncio en MongoDB
-* @param {Item} newItem Objeto con los datos a modificar
+* @param {Advert} newAdvert Objeto con los datos a modificar
 */
-ItemSchema.statics.updateItem = async function(id, newItem) {
+AdvertSchema.statics.updateAdvert = async function(id, newAdvert) {
     try {
         // Busco algún anuncio con ese id
-        let item = await Item.findById(id);
-        if (item) {
+        let advert = await Advert.findById(id);
+        if (advert) {
             // Si viene el parametro en el body lo sobreescribo
-            item.name = newItem.name?newItem.name:item.name;
-            item.price = newItem.price?newItem.price:item.price;
-            item.type = newItem.type?newItem.type:item.type;
-            if (newItem.photo) {
-                item.photo = newItem.photo;
-                item.thumbnail = newItem.photo;
+            advert.name = newAdvert.name || advert.name;
+            advert.price = newAdvert.price || advert.price;
+            advert.type = newAdvert.type || advert.type;
+            if (newAdvert.photo) {
+                advert.photo = newAdvert.photo;
+                advert.thumbnail = newAdvert.photo;
+            } else {
+                advert.photo = newAdvert.photo || advert.photo;
+                advert.thumbnail = newAdvert.thumbnail || advert.thumbnail;
             }
-            item.tags = newItem.tags?newItem.tags:item.tags;
-            item.description = newItem.description?newItem.description:item.description;
+            advert.tags = newAdvert.tags || advert.tags;
+            advert.description = newAdvert.description || advert.description;
             // Salvo datos en mongo
-            item = await item.save();
-            return item;
+            advert = await advert.save();
+            return advert;
         }
         return false;
     } catch (error) {
@@ -171,8 +173,8 @@ ItemSchema.statics.updateItem = async function(id, newItem) {
 /**
 * Creo un indice compuesto por tipo de anuncio (buy/sell) + tags
 */
-ItemSchema.index({ types: 1, tags: 1 });
+AdvertSchema.index({ types: 1, tags: 1 });
 
 
-const Item = mongoose.model('Item', ItemSchema);
-module.exports = Item;
+const Advert = mongoose.model('Advert', AdvertSchema);
+module.exports = Advert;
