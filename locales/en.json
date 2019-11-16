@@ -25,7 +25,12 @@
 	"Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición": "Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición",
 	"Not authorized": "Not authorized",
 	"Results not found": "Results not found",
-	"Error. Wrong token": "Error. Wrong token",
 	"Account activated. Please login.": "Account activated. Please login.",
-	"Wrong token or expired": "Wrong token or expired"
+	"Wrong token or expired": "Wrong token or expired",
+	"your name here": "your name here",
+	"repeat the password": "repeat the password",
+	"Enter your data to create the account": "Enter your data to create the account",
+	"Go to login": "Go to login",
+	"Go to create account": "Go to create account",
+	"Account created. Check your email to activate the account.": "Account created. Check your email to activate the account."
 }

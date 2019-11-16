@@ -47,6 +47,20 @@ module.exports = () => {
         '/activate/:token', 
         WebUserCtrl.activate
     );
+    /**
+     * Create account
+     */
+    router.get(
+        '/create', 
+        WebUserCtrl.formCreate
+    );
+    /**
+     * Create account
+     */
+    router.post(
+        '/create', 
+        WebUserCtrl.postCreate
+    );
     
     // Return router
     return router;

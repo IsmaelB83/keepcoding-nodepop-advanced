@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt-nodejs');
 // Own imports
 const { User } = require('../models');
+const { mail } = require('../utils');
 
 
 /**
@@ -107,5 +108,63 @@ module.exports = {
         }
         // Render login
         res.render('pages/login');
+    },
+
+    /**
+     * Render create account form
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    formCreate: async (req, res, next) => {
+        res.render('pages/newUser');
+    },
+
+    /**
+     * After user click on create account
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    postCreate: async (req, res, next) => {
+        // Check first if the email already exists
+        let user = await User.findOne({email: req.body.email});
+        if (user) {
+            // Error
+            res.locals.status = 400;
+            res.locals.error = res.__('Error email aLready exists.');
+            return res.render('pages/newUser');
+        }
+        // Check both passwords are the same
+        if (req.body.password === req.body.password2) {
+            let user = await User.insert(new User({...req.body}));
+            if (user) {
+                // Send mail
+                const apiURL = `https://localhost:8443/apiv1/user/activate/${user.token}`;
+                const webURL = `https://localhost:8443/user/activate/${user.token}`;
+                mail({
+                    email: user.email, 
+                    subject: 'Activate account',
+                    apiURL,
+                    webURL,
+                    view: 'new_user'
+                });
+                // Ok
+                res.locals.status = 201;
+                res.locals.email = user.email;
+                res.locals.error = res.__('Account created. Check your email to activate the account.');
+                return res.render('pages/login');
+            } else {
+                // Error
+                res.locals.status = 400;
+                res.locals.error = res.__('Error trying to create the account.');
+            }
+        } else {
+            // Error
+            res.locals.status = 400;
+            res.locals.error = res.__('Error passwords should match.');
+        }
+        // Render login
+        res.render('pages/newUser');
     }
 }
