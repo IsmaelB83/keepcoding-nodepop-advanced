@@ -11,17 +11,22 @@
   - [Microservicio de generación de thumbnails](#Microservicio-de-generación-de-thumbnails)
 - [INSTALACIÓN Y EJECUCIÓN](#INSTALACIÓN-Y-EJECUCIÓN)
   - [Descarga](#Descarga)
-  - [Instalación](#Inicialización-de-base-de-datos)
+  - [Instalación de modulos](#Instalación-de-modulos)
+  - [Inicialización de base de datos](#Inicialización-de-base-de-datos)
   - [Ejecución](#Ejecución)
 - [REST API](#REST-API)
+  - [Autenticación](#Autenticación)
+  - [User](#User)
+    - [User-schema](#User-schema)
+    - [Crear un usuario](#Crear-un-usuario)
   - [Anuncios](#Anuncios)
-  - [Anuncios Schema](#Anuncios-schema)
-  - [Obtener todos los anuncios](#Obtener-todos-los-anuncios)
-  - [Obtener un único anuncio](#Obtener-un-único-anuncio)
-  - [Filtrado de anuncios](#Filtrado-de-anuncios)
-  - [Listado de tags](#Listado-de-tags)
-  - [Crear un anuncio](#Crear-un-anuncio)
-  - [Actualizar un anuncio](#Actualizar-un-anuncio)
+    - [Anuncios Schema](#Anuncios-schema)
+    - [Obtener todos los anuncios](#Obtener-todos-los-anuncios)
+    - [Obtener un único anuncio](#Obtener-un-único-anuncio)
+    - [Filtrado de anuncios](#Filtrado-de-anuncios)
+    - [Listado de tags](#Listado-de-tags)
+    - [Crear un anuncio](#Crear-un-anuncio)
+    - [Actualizar un anuncio](#Actualizar-un-anuncio)
 - [WEB](#web)
 
 
@@ -130,7 +135,7 @@ Al mismo tiempo es necesario que arranquemos el microservicio encargado de gener
 
 ## REST API
 
-### Authenticacion
+### Autenticación
 Las rutas de anuncios de la API están securizadas mediante JWT. Para conseguir el token que da acceso al resto de rutas de la API es necesario autenticar mediante el siguiente endpoint (tipo POST). En el body hay que pasar el email y el password:
 ```
 https://localhost:8443/apiv1/authenticate
@@ -149,10 +154,29 @@ El resultado de la llamada proporcionará el JWT a utilizar en el resto de llama
 }
 ```
 
-### Anuncios
-Hay un total de 20 anuncios en el script de carga proporcionado.
+### User
+Este recurso proporciona el modelo de usuario que utiliza la aplicación para autenticación
 
-### Anuncios-schema
+#### User-schema
+|Key|Type|Description|
+|---|---|---|
+|_id|string|Id del usuario
+|name|string|Nombre del usuario (30char)
+|email|string|Email del usuario (150char)
+|password|string|Password del usuario (min length 4char)
+|jwt|string|JWT generado cuando un usuario autentica en la aplicación
+|expire|Date|Fecha de expiración del JWT
+
+#### Crear un usuario
+Para crear un usuario debes llamar a la url base de users con el metodo POST. Pasando en el body del request todos los parametros para definir el nuevo usuario: name, email, password
+```
+https://localhost:8443/apiv1/user  (POST)
+```
+
+### Anuncios
+Este recurso proporciona el modelo de anunción que utiliza la aplicación como modelo básico para su funcionalidad tipo "tienda"
+
+#### Anuncios-schema
 |Key|Type|Description|
 |---|---|---|
 |_id|string|Id del anuncio
@@ -165,10 +189,10 @@ Hay un total de 20 anuncios en el script de carga proporcionado.
 |tags|array|Array de tags asociados al anuncio
 
 
-### Obtener todos los anuncios
+#### Obtener todos los anuncios
 Pueds obtener todos los anuncios de la base de datos mediante el endpoint `/anuncios`.
 ```
-http://localhost:3001/apiv1/anuncios
+https://localhost:8443/apiv1/anuncios
 ```
 ```js
 {
@@ -193,10 +217,10 @@ http://localhost:3001/apiv1/anuncios
   ]
 }
 ```
-### Obtener un único anuncio
+#### Obtener un único anuncio
 Puede obtener un único anuncio añadiendo el `id` a continuación del endpoint: `/anuncios/5d3a0a5f9bd7ed2ece463ab4`
 ```
-http://localhost:3001/apiv1/anuncios/5d3a0a5f9bd7ed2ece463ab4
+https://localhost:8443/apiv1/anuncios/5d3a0a5f9bd7ed2ece463ab4
 ```
 ```js
 {
@@ -219,17 +243,17 @@ http://localhost:3001/apiv1/anuncios/5d3a0a5f9bd7ed2ece463ab4
 }
 ```
 
-### Filtrado de anuncios
+#### Filtrado de anuncios
 Puedes incluir filtros en la URL añadiendo parametros especiales a la consulta. Para comenzar con el filtrado incorpora el carácter `?` seguido de las queries a incorporar
 en el siguiente formato `<query>=<value>`. Si necesitas encadenar varias consultas puedes utilizar el carácter `&`.
 
 Ejemplos de consultas:
-- Todos los anuncios que contienen el `tag` lifestyle: http://localhost:3001/apiv1/anuncios?tag=lifestyle: 
-- Todos los anuncios con `price` entre 1 y 100: http://localhost:3001/apiv1/anuncios?price=1-100
-- Las dos consultas anteriores combinadas: http://localhost:3001/apiv1/anuncios?tag=lifestyle&price=1-100
-- Precio entre 1 y 100 de anuncios que empiecen por 'Com': http://localhost:3001/apiv1/anuncios?price=1-100&name=Com
-- Sólo los anuncios de venta: http://localhost:3001/apiv1/anuncios?venta=true
-- Sólo los anuncios de compra: http://localhost:3001/apiv1/anuncios?venta=false
+- Todos los anuncios que contienen el `tag` lifestyle: https://localhost:8443/apiv1/anuncios?tag=lifestyle: 
+- Todos los anuncios con `price` entre 1 y 100: https://localhost:8443/apiv1/anuncios?price=1-100
+- Las dos consultas anteriores combinadas: https://localhost:8443/apiv1/anuncios?tag=lifestyle&price=1-100
+- Precio entre 1 y 100 de anuncios que empiecen por 'Com': https://localhost:8443/apiv1/anuncios?price=1-100&name=Com
+- Sólo los anuncios de venta: https://localhost:8443/apiv1/anuncios?venta=true
+- Sólo los anuncios de compra: https://localhost:8443/apiv1/anuncios?venta=false
 
 
 Los parámetros disponibles para filtrado son:
@@ -243,7 +267,7 @@ Los parámetros disponibles para filtrado son:
 
 *Ejemplo de consulta*
 ```
-http://localhost:3001/apiv1/anuncios?price=1-100&venta=false
+https://localhost:8443/apiv1/anuncios?price=1-100&venta=false
 ```
 ```js
 {
@@ -297,7 +321,7 @@ http://localhost:3001/apiv1/anuncios?price=1-100&venta=false
 }
 ```
 
-### Listado de tags
+#### Listado de tags
 Puedes obtener un listado de los tags existentes en la base de datos mediante el recurso /tag de la API: http://127.0.0.1:3001/apiv1/tags
 
 *Ejemplo de consulta*
@@ -317,21 +341,21 @@ http://127.0.0.1:3001/apiv1/tags
 }
 ```
 
-### Crear un anuncio
+#### Crear un anuncio
 Para crear un anuncio debes llamar a la url base de anuncios con el metodo POST. Pasando en el body del request todos los parametros para definir el nuevo anuncio
 ```
-http://localhost:3001/apiv1/anuncios  (POST)
+https://localhost:8443/apiv1/anuncios  (POST)
 ```
 
 En un primer momento tanto "photo" como "thumbnail apuntarán a la misma url con la imagen generada. Esta url será la ubicada en la ruta /public/images/adverts/original. Adicionalmente, el controlador de la API generará un mensaje contra la cola rabbitmq, para que un worker se encargue de generar el resize de la imagen (el thumbnail), y adicionalmente actualizar el modelo (advert), apuntando el campo "thumbnail" a la nueva imagen generada. Que en este caso estará en la ruta /public/images/adverts/thumbnail.
 
 De esta forma, mediante el uso de rabbitmq y un microservicio para la gestión de la generación del thumbnail, conseguimos desacoplar totalmente la generación de los thumbnails de la propia funcionalidad de la API.
 
-### Actualizar un anuncio
+#### Actualizar un anuncio
 Para actualizar un anuncio se debe llamar a la URL base de un anuncio único `anuncio/id` utilizando el metodo PUT. Además en el body del request se indicarán los nuevos valores
 de los parametros que se deseen modificar.
 ```
-http://localhost:3001/apiv1/anuncios/5d3a0a5f9bd7ed2ece463abb  (PUT)
+https://localhost:8443/apiv1/anuncios/5d3a0a5f9bd7ed2ece463abb  (PUT)
 ```
 
 ## WEB
@@ -340,8 +364,8 @@ Adicionalmente a la API se proporciona una web con dos vistas, para poder visual
 a la que se navega desde la vista de index cuando se hace click en el detalle de un anuncio cualquiera:
 
 ```
-http://localhost:3001/                          (index)
-http://localhost:3001/5d3a0a5f9bd7ed2ece463abc  (detail del anuncio indicado)
+https://localhost:8443/                          (index)
+https://localhost:8443/5d3a0a5f9bd7ed2ece463abc  (detail del anuncio indicado)
 ```
 
 Adicionalmente se proporciona una vista de login, sobre la que es imprescindible identificarse para navegar a la sección privada de la web. El login por defecto (incluido en el script de inicialización), es usuario **user@example.es** y password **1234**.
