@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
-const MongoStore = require('connect-mongo')(session);  // persist web session in mongodb
+const mongoStore = require('connect-mongo')(session);  // persist web session in mongodb
 // Own imports
 const { AuthRoutes, UserRoutes, AdvertRoutes, WebUserRoutes, WebAdvertRoutes } = require('../routes');
 const { ErrorMiddleware, AuthMiddleware } = require('../middlewares');
@@ -37,7 +37,7 @@ module.exports = function(app, conn) {
             secure: true, // only send trough https
             maxAge: 1000 * 3600 * 24 * 2 // expire time is 2 days
         },
-        store: new MongoStore({
+        store: new mongoStore({
             mongooseConnection: conn
         })
     }));
