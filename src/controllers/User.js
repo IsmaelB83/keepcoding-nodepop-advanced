@@ -47,7 +47,7 @@ module.exports = {
         const password = req.body.password;
         const email = req.body.email
         // Find user in mongo
-        const user = await User.findOne({email: email});
+        const user = await User.findOne({email: email, active: true});
         if (user) {
             // Compare hashes (use bcrypt to avoid timing attacks as well)
             if (bcrypt.compareSync(password, user.password)) {
@@ -76,5 +76,36 @@ module.exports = {
         req.session.destroy(() => {
             res.redirect('/user/login');
         });
+    },
+
+    /**
+     * Activate account with token
+     * @param {Request} req Request web
+     * @param {Response} res Response web
+     * @param {Middleware} next Next middleware
+     */
+    activate: async (req, res, next) => {
+        let user = await User.findOne({
+            token: req.params.token, 
+            active: false, 
+            expire: { $gt: Date.now()}
+        });
+        if (user) {
+            // Activo el usuario
+            user.token = '';
+            user.expire = '';
+            user.active = true;
+            user = await user.save();
+            // Ok
+            res.locals.status = 201;
+            res.locals.email = user.email;
+            res.locals.error = res.__('Account activated. Please login.');
+        } else {
+            // Authorization error
+            res.locals.status = 400;
+            res.locals.error = res.__('Wrong token or expired');
+        }
+        // Render login
+        res.render('pages/login');
     }
 }

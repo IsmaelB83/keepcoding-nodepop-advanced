@@ -2,9 +2,9 @@
 // Node imports
 var Jimp = require('jimp');
 // Own imports
-const connectionPromise = require('./connect');
-const { Advert } = require('../models');
-const database = require('../database');
+const connectionPromise = require('../connect');
+const { Advert } = require('../../models');
+const database = require('../../database');
 
 
 // Queue name in rabbitmq

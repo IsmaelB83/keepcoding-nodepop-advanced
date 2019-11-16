@@ -2,7 +2,7 @@
 // Own imports
 const { validationResult } = require('express-validator');
 // Node imports
-const Sender = require('../../services/sender');
+const Sender = require('../../services/thumbnail/sender');
 const { Advert } = require('../../models');
 
 

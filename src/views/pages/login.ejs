@@ -14,7 +14,7 @@
             </div>
             <form class='login-form' method='post' action="/user/login">
                 <% if (locals.error) { %>
-                <div class='alert alert-danger' role='alert'>
+                <div class='alert <%= locals.status === 201 ? 'alert-success' : 'alert-danger' %>' role='alert'>
                     <%= locals.status %> - <%= locals.error %>
                 </div>
                 <% } %>

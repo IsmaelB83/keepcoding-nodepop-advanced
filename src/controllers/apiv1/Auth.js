@@ -19,7 +19,7 @@ module.exports = {
      */
     login: async (req, res, next) => {
         // Find user by email
-        const user = await User.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email, active: true});
         if (user) {
             // Compare hashes (use bcrypt to avoid timing attacks as well)
             if (bcrypt.compareSync(req.body.password, user.password)) {

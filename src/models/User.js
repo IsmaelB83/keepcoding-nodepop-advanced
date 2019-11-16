@@ -3,6 +3,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
+const crypto = require('crypto');
+
 
 /**
  * User Schema in the database
@@ -25,6 +27,14 @@ const UserSchema = new Schema(
          */
         jwt: { type: String },
         /**
+         * Token used to activate a user, restart password, etc.
+         */
+        token: { type: String},
+        /**
+         * By default a new user will be inactive
+         */
+        active: { type: Boolean, default: false },
+        /**
          * Expiration time of the JWT
          */
         expire: { type: Date, default: Date.now() + 3600000, select: false },
@@ -41,6 +51,8 @@ const UserSchema = new Schema(
 UserSchema.statics.insert = async function(user) {
     try {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
+        user.token = crypto.randomBytes(20).toString('hex');
+        user.active = false;
         return await user.save();
     } catch (error) {
         console.log('Error insertando usuarios.');
@@ -64,8 +76,28 @@ UserSchema.statics.update = async function(id, newUser) {
         }
         return false;
     } catch (error) {
-        console.log('Error actualizando usuario.');
-        console.log(error);
+        console.log('Error actualizando usuario: ', error);
+        return false;
+    }
+};
+
+/**
+* Activate the user account in case the specified token is valid
+* @param {String} id ID que representa a un usario en MongoDB
+* @param {String} token Token del usuario
+*/
+UserSchema.statics.activate = async function(id, token) {
+    try {
+        let user = await User.findById(id);
+        if (user && user.token === token && user.expire >= Date.now()) {
+            user.active = true;
+            user.expire = null;
+            user.token = null;
+            return await user.save();
+        }
+        return false;
+    } catch (error) {
+        console.log('Error activando usuario: ', error);
         return false;
     }
 };

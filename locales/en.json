@@ -24,5 +24,8 @@
 	"App created by": "Webapp created by",
 	"Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición": "Student of the Keepcoding Bootcamp Fullstack Web Development VII Edición",
 	"Not authorized": "Not authorized",
-	"Results not found": "Results not found"
+	"Results not found": "Results not found",
+	"Error. Wrong token": "Error. Wrong token",
+	"Account activated. Please login.": "Account activated. Please login.",
+	"Wrong token or expired": "Wrong token or expired"
 }

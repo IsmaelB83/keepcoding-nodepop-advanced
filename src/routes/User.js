@@ -40,6 +40,13 @@ module.exports = () => {
         '/login', 
         WebUserCtrl.postLogin
     );
+    /**
+     * Activate account
+     */
+    router.get(
+        '/activate/:token', 
+        WebUserCtrl.activate
+    );
     
     // Return router
     return router;

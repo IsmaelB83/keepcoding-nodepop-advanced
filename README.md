@@ -9,6 +9,7 @@
   - [Tratamiento de imagenes](#Tratamiento-de-imagenes)
   - [Internacionalización](#Internacionalización)
   - [Microservicio de generación de thumbnails](#Microservicio-de-generación-de-thumbnails)
+  - [Envío de mails](#Envío-de-mails)
 - [INSTALACIÓN Y EJECUCIÓN](#INSTALACIÓN-Y-EJECUCIÓN)
   - [Descarga](#Descarga)
   - [Instalación de modulos](#Instalación-de-modulos)
@@ -43,6 +44,7 @@ Las mejoras introducidas en esta versión son:
 - Implementación de un microservicio sobre rabbitMQ para generar los thumbnails de la imagen anterior 
 - Internacionalización del frontal web mediante i18n.
 - Gestión de parámetros de la aplicación mediante ficheros .env
+- Envío de mails para activación de cuenta de usuario. Mediante el uso de token con expiración temporal.
 
 ## DEPENDENCIAS
 
@@ -77,6 +79,12 @@ Esta aplicación hace uso de los siguientes módulos de npm:
 
 ### Microservicio de generación de thumbnails
 - "amqplib": "^0.5.5"
+
+### Envío de mails
+- "nodemailer": "^6.3.1"
+- "juice": "^5.2.0"
+- "html-to-text": "^5.1.1"
+- "ejs-promise": "^0.3.3" 
 
 
 ## INSTALACIÓN Y EJECUCIÓN
@@ -171,6 +179,12 @@ Este recurso proporciona el modelo de usuario que utiliza la aplicación para au
 Para crear un usuario debes llamar a la url base de users con el metodo POST. Pasando en el body del request todos los parametros para definir el nuevo usuario: name, email, password
 ```
 https://localhost:8443/apiv1/user  (POST)
+```
+
+Esto generará la cuenta de usuario en estado inactivo. Para poder empezar a utilizar la cuenta de usuario se debe validar mediante correo electrónico. Nodepop enviará un correo electrónico a la dirección de mail proporcionada, este correo incorporará un enlace para la activación de la cuenta tipo al siguiente:
+
+```
+https://localhost:8443/apiv1/user/activate/01fdc7f33985b0493cb850b96f742332983bf57c  (GET)
 ```
 
 ### Anuncios
