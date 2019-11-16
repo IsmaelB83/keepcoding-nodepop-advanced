@@ -3,6 +3,12 @@
 ## CONTENTS
 - [INTRODUCCIÓN](#INTRODUCCIÓN)
 - [DEPENDENCIAS](#DEPENDENCIAS)
+  - [Funcionalidad básica del servidor y API](#Funcionalidad-básica-del-servidor-y-API)
+  - [Gestión de ficheros .env](#Gestión-de-ficheros-.env)
+  - [Authenticación y gestión de sesiones](#Authenticación-y-gestión-de-sesiones)
+  - [Tratamiento de imagenes](#Tratamiento-de-imagenes)
+  - [Internacionalización](#Internacionalización)
+  - [Microservicio de generación de thumbnails](#Microservicio-de-generación-de-thumbnails)
 - [INSTALACIÓN Y EJECUCIÓN](#INSTALACIÓN-Y-EJECUCIÓN)
   - [Descarga](#Descarga)
   - [Instalación](#Inicialización-de-base-de-datos)
@@ -21,7 +27,7 @@
 
 ## INTRODUCCIÓN
 
-Este proyecto proporciona es una versión avanzada del proyecto nodepop desarrollado en el módulo de backend del bootcamp de Keepcoding.
+Este repositorio proporciona una versión avanzada del proyecto nodepop desarrollado en el módulo de backend del bootcamp de Keepcoding.
 Para mantener el repositorio original intacto, he creado este nuevo repositorio. El repo original lo podeis encontrar aquí: https://github.com/IsmaelB83/keepcoding-nodepop-api
 
 Las mejoras introducidas en esta versión son:
@@ -124,6 +130,9 @@ Al mismo tiempo es necesario que arranquemos el microservicio encargado de gener
 
 ## REST API
 
+### Authenticacion
+...
+
 ### Anuncios
 Hay un total de 20 anuncios en el script de carga proporcionado.
 
@@ -138,6 +147,7 @@ Hay un total de 20 anuncios en el script de carga proporcionado.
 |photo|string|Url a la imagen principal del anuncio
 |thumbnail|string|Url a la imagen tipo thumbnail del anuncio
 |tags|array|Array de tags asociados al anuncio
+
 
 ### Obtener todos los anuncios
 Pueds obtener todos los anuncios de la base de datos mediante el endpoint `/anuncios`.
