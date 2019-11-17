@@ -32,5 +32,6 @@
 	"Enter your data to create the account": "Enter your data to create the account",
 	"Go to login": "Go to login",
 	"Go to create account": "Go to create account",
-	"Account created. Check your email to activate the account.": "Account created. Check your email to activate the account."
+	"Account created. Check your email to activate the account.": "Account created. Check your email to activate the account.",
+	"Not authorized or inactive": "Not authorized. Or accout inactive."
 }

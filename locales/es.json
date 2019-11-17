@@ -30,7 +30,8 @@
 	"your name here": "introduzca su nombre aquí",
 	"repeat the password": "repita su contraseña",
 	"Enter your data to create the account": "Ingrese sus datos para crear la cuenta",
-	"Go to login": "Go to login",
-	"Go to create account": "Go to create account",
-	"Account created. Check your email to activate the account.": "Account created. Check your email to activate the account."
+	"Go to login": "Ir a login",
+	"Go to create account": "Ir a crear cuenta",
+	"Account created. Check your email to activate the account.": "Cuenta creada. Por favor chequee su email para activarla.",
+	"Not authorized or inactive": "No autorizado o cuenta inactiva."
 }

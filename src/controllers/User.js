@@ -63,7 +63,7 @@ module.exports = {
         // Authorization error
         res.locals.status = 401;
         res.locals.email = email;
-        res.locals.error = res.__('Not authorized');
+        res.locals.error = res.__('Not authorized or inactive');
         res.render('pages/login');
     },
 

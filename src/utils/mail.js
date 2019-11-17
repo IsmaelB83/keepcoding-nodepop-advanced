@@ -11,7 +11,7 @@ require('dotenv').config();
 // Consts
 const mailViews = `${__dirname}/../views/mails/`;
 
-// Nodemailer configuration
+/* // Nodemailer configuration (with mailtrap)
 const transport = nodemailer.createTransport({
     host: process.env.MAILTRAP_HOST,
     port: process.env.MAILTRAP_PORT,
@@ -20,7 +20,16 @@ const transport = nodemailer.createTransport({
         user: process.env.MAILTRAP_USER,
         pass: process.env.MAILTRAP_PASS
     }
-});
+}); */
+
+// Nodemailer configuration (with sendgrip)
+const transport = nodemailer.createTransport({
+    service: 'SendGrid',
+    auth: {
+      user: process.env.SENDGRID_USER,
+      pass: process.env.SENDGRID_PASS
+    }
+}); 
 
 /**
  * Generate HTML content from a ejs template

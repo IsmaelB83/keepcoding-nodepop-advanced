@@ -29,7 +29,11 @@
     - [Crear un anuncio](#Crear-un-anuncio)
     - [Actualizar un anuncio](#Actualizar-un-anuncio)
 - [WEB](#web)
-
+  - [Create user](#Create-user)
+  - [Login](#Login)
+  - [Home](#Home)
+  - [Detail](#Detail)
+  
 
 ## INTRODUCCIÓN
 
@@ -70,15 +74,13 @@ Esta aplicación hace uso de los siguientes módulos de npm:
 - "connect-mongo": "^3.1.2"
 - "bcrypt-nodejs": "0.0.3"
 
-### Tratamiento de imagenes
+### Microservicio de generación de thumbnails
+- "amqplib": "^0.5.5"
 - "multer": "^1.4.2"
 - "jimp": "^0.8.5"
 
 ### Internacionalización
 - "i18n": "^0.8.4"
-
-### Microservicio de generación de thumbnails
-- "amqplib": "^0.5.5"
 
 ### Envío de mails
 - "nodemailer": "^6.3.1"
@@ -374,12 +376,47 @@ https://localhost:8443/apiv1/anuncios/5d3a0a5f9bd7ed2ece463abb  (PUT)
 
 ## WEB
 
-Adicionalmente a la API se proporciona una web con dos vistas, para poder visualizar el contenido de anuncios de la base de datos. Estas dos vistas son el propio `index`, y la vista de `detail`, 
-a la que se navega desde la vista de index cuando se hace click en el detalle de un anuncio cualquiera:
+Adicionalmente a la API se proporciona una web con la posibilidad de ver todos los anuncios disponibles en nodepop (tanto a nivel de lista como de detalle).
 
+### Create user
+Para crear un usuario desde la web, debemos acceder a la ruta siguiente. También se puede acceder desde el propio login (vista por defecto que renderiza la app), y haciendo click en el enlace de la parte inferior del formulario que dice: "go to create account":
 ```
-https://localhost:8443/                          (index)
-https://localhost:8443/5d3a0a5f9bd7ed2ece463abc  (detail del anuncio indicado)
+https://localhost:8443/user/create
 ```
 
-Adicionalmente se proporciona una vista de login, sobre la que es imprescindible identificarse para navegar a la sección privada de la web. El login por defecto (incluido en el script de inicialización), es usuario **user@example.es** y password **1234**.
+https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/create.jpg
+
+Una vez rellenados los datos del formulario, y pulsado en "create account", la aplicación nos enviará un mail que debemos confirmar para que la cuenta se encuentre activa. Hasta ese momento la cuenta permanecerá inactiva, y por tanto no podrá ser utilizada para hacer login. El mail que se recibe contiene una ruta similar a la siguiente, con un token de activación que se asigna a la cuenta del usuario al momento de crear la cuenta:
+```
+https://localhost:8443/user/activate/d44d7e3eb7006eb3fbf6ddc39456c5ba4794edfa         (version web)
+https://localhost:8443/apiv1/user/activate/d44d7e3eb7006eb3fbf6ddc39456c5ba4794edfa   (version api)
+```
+
+https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/mail.jpg
+
+
+### Login
+Para acceder a la aplicación debemos indicar nuestro email y contraseña. Si las credenciales son válidas, se accederá automáticamente la zona privada, donde podremos ver los anuncios de nodepop:
+```
+https://localhost:8443/user/login
+```
+
+https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/login.jpg
+
+
+### Home
+En esta vista se muestran todos los anuncios disponibles en nodepop. Se accede a ella directamente una vez hemos hecho login en la aplicación:
+```
+https://localhost:8443/
+```
+
+https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/home.jpg
+
+
+### Detail
+En esta vista se muestra la tarjeta de detalle de un anuncio. Se accede a ella desde el home, cuando pulsamos en el "detalle" de un anuncio concreto:
+```
+https://localhost:8443/5d3a0a5f9bd7ed2ece463abc
+```
+
+https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/detail.jpg
