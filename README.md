@@ -384,7 +384,7 @@ Para crear un usuario desde la web, debemos acceder a la ruta siguiente. Tambié
 https://localhost:8443/user/create
 ```
 
-https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/create.jpg
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/create.jpg)
 
 Una vez rellenados los datos del formulario, y pulsado en "create account", la aplicación nos enviará un mail que debemos confirmar para que la cuenta se encuentre activa. Hasta ese momento la cuenta permanecerá inactiva, y por tanto no podrá ser utilizada para hacer login. El mail que se recibe contiene una ruta similar a la siguiente, con un token de activación que se asigna a la cuenta del usuario al momento de crear la cuenta:
 ```
@@ -392,7 +392,7 @@ https://localhost:8443/user/activate/d44d7e3eb7006eb3fbf6ddc39456c5ba4794edfa   
 https://localhost:8443/apiv1/user/activate/d44d7e3eb7006eb3fbf6ddc39456c5ba4794edfa   (version api)
 ```
 
-https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/mail.jpg
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/mail.jpg)
 
 
 ### Login
@@ -401,7 +401,7 @@ Para acceder a la aplicación debemos indicar nuestro email y contraseña. Si la
 https://localhost:8443/user/login
 ```
 
-https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/login.jpg
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/login.jpg)
 
 
 ### Home
@@ -410,7 +410,7 @@ En esta vista se muestran todos los anuncios disponibles en nodepop. Se accede a
 https://localhost:8443/
 ```
 
-https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/home.jpg
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/home.jpg)
 
 
 ### Detail
@@ -419,4 +419,4 @@ En esta vista se muestra la tarjeta de detalle de un anuncio. Se accede a ella d
 https://localhost:8443/5d3a0a5f9bd7ed2ece463abc
 ```
 
-https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/detail.jpg
+![alt text](https://raw.githubusercontent.com/IsmaelB83/keepcoding-nodepop-advanced/master/public/images/readme/detail.jpg)
