@@ -131,6 +131,11 @@ Rutas a los ficheros key y cert para poder arrancar el modo https:
 Puerto en el que arrancar el servidor. Por defecto será el HTTPS.
 - PORT=8443
 
+Configuración de sendgrid para poder hacer uso del envio de mails (es necesario para activar nuevas cuentas de usuario). En el .env.example también hay parámetros de mailtrap. Pero no son necesarios en la configuración actual de la aplicación (que ya trabaja sobre sendgrid):
+- SENDGRIP_USER=user
+- SENDGRIP_PASS=pass
+
+
 Una vez configurado el fichero .env, arrancaremos la aplicación mediante:
 ```
 \downloads\keepcoding-nodepop-advanced\npm start
