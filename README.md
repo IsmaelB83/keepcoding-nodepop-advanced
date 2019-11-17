@@ -1,7 +1,21 @@
 # Version 2.0 de nodepop adaptada para el módulo de backend avanzado
 
+Este repositorio es una versión avanzada del proyecto nodepop desarrollado en el módulo de backend del bootcamp de Keepcoding.
+Para mantener el repositorio original intacto (https://github.com/IsmaelB83/keepcoding-nodepop-api), he creado este nuevo repositorio.
+
+Las mejoras introducidas en esta versión son:
+- Creación del **modelo de usuario** y persistencia en mongodb.
+- **Envío de mails para activación de cuenta de usuario**. Mediante el uso de token con expiración temporal.
+- **Securización de la API** mediante Json Web Token.
+- **Securización del frontal** web mediante express-session y connect-mongo
+- **Carga de imagenes** de los anuncios desde el API
+- Implementación de un **microservicio sobre rabbitMQ** para generar los thumbnails de la imagen anterior 
+- **Internacionalización del frontal web** mediante i18n.
+- **Uso de .env y dot-env** para almacenar configuración sensible de la aplicación.
+- **BONUS TRACK**: (pending)
+
+
 ## CONTENTS
-- [INTRODUCCIÓN](#INTRODUCCIÓN)
 - [DEPENDENCIAS](#DEPENDENCIAS)
   - [Funcionalidad básica del servidor y API](#Funcionalidad-básica-del-servidor-y-API)
   - [Gestión de ficheros .env](#Gestión-de-ficheros-.env)
@@ -34,22 +48,6 @@
   - [Home](#Home)
   - [Detail](#Detail)
   
-
-## INTRODUCCIÓN
-
-Este repositorio proporciona una versión avanzada del proyecto nodepop desarrollado en el módulo de backend del bootcamp de Keepcoding.
-Para mantener el repositorio original intacto, he creado este nuevo repositorio. El repo original lo podeis encontrar aquí: https://github.com/IsmaelB83/keepcoding-nodepop-api
-
-Las mejoras introducidas en esta versión son:
-- Creación del modelo de usuario y persistencia en mongodb.
-- Securización de la API mediante Json Web Token.
-- Securización del frontal web mediante express-session y connect-mongo
-- Carga de imagenes de los anuncios desde el API
-- Implementación de un microservicio sobre rabbitMQ para generar los thumbnails de la imagen anterior 
-- Internacionalización del frontal web mediante i18n.
-- Gestión de parámetros de la aplicación mediante ficheros .env
-- Envío de mails para activación de cuenta de usuario. Mediante el uso de token con expiración temporal.
-
 ## DEPENDENCIAS
 
 Esta aplicación hace uso de los siguientes módulos de npm:
