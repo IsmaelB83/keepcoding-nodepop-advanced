@@ -12,7 +12,7 @@ Las mejoras introducidas en esta versión son:
 - Implementación de un **microservicio sobre rabbitMQ** para generar los thumbnails de la imagen anterior 
 - **Internacionalización del frontal web** mediante i18n.
 - **Uso de .env y dot-env** para almacenar configuración sensible de la aplicación.
-- **BONUS TRACK**: (pending)
+- **Supertest**: implementado jest y supertest para testear el api. Para arrancarlo hacer uso de **npm run test** o **npm run test:watch**
 
 
 ## CONTENTS
@@ -86,6 +86,10 @@ Esta aplicación hace uso de los siguientes módulos de npm:
 - "html-to-text": "^5.1.1"
 - "ejs-promise": "^0.3.3" 
 
+### Tests
+- "jest": "^24.9.0"
+- "supertest": "^4.0.2"
+
 
 ## INSTALACIÓN Y EJECUCIÓN
 
@@ -109,6 +113,14 @@ Inicializa la base de datos mongo. Esto borrará la colección "advert" de la ba
 \downloads\keepcoding-nodepop-advanced\src\database\data.json
 ```
 \downloads\keepcoding-nodepop-advanced\npm run init
+```
+
+### Lanzar tests unitarios
+
+Para lanzar los tests unitarios lanzar el siguiente script
+```
+\downloads\keepcoding-nodepop-advanced\npm run test         (o bien)
+\downloads\keepcoding-nodepop-advanced\npm run test:watch
 ```
 
 ### Ejecución
@@ -209,9 +221,9 @@ Este recurso proporciona el modelo de anunción que utiliza la aplicación como 
 
 
 #### Obtener todos los anuncios
-Pueds obtener todos los anuncios de la base de datos mediante el endpoint `/anuncios`.
+Pueds obtener todos los anuncios de la base de datos mediante el endpoint `/adverts`.
 ```
-https://localhost:8443/apiv1/anuncios
+https://localhost:8443/apiv1/adverts
 ```
 ```js
 {
@@ -237,9 +249,9 @@ https://localhost:8443/apiv1/anuncios
 }
 ```
 #### Obtener un único anuncio
-Puede obtener un único anuncio añadiendo el `id` a continuación del endpoint: `/anuncios/5d3a0a5f9bd7ed2ece463ab4`
+Puede obtener un único anuncio añadiendo el `id` a continuación del endpoint: `/adverts5d3a0a5f9bd7ed2ece463ab4`
 ```
-https://localhost:8443/apiv1/anuncios/5d3a0a5f9bd7ed2ece463ab4
+https://localhost:8443/apiv1/adverts/5d3a0a5f9bd7ed2ece463ab4
 ```
 ```js
 {
@@ -267,12 +279,12 @@ Puedes incluir filtros en la URL añadiendo parametros especiales a la consulta.
 en el siguiente formato `<query>=<value>`. Si necesitas encadenar varias consultas puedes utilizar el carácter `&`.
 
 Ejemplos de consultas:
-- Todos los anuncios que contienen el `tag` lifestyle: https://localhost:8443/apiv1/anuncios?tag=lifestyle: 
-- Todos los anuncios con `price` entre 1 y 100: https://localhost:8443/apiv1/anuncios?price=1-100
-- Las dos consultas anteriores combinadas: https://localhost:8443/apiv1/anuncios?tag=lifestyle&price=1-100
-- Precio entre 1 y 100 de anuncios que empiecen por 'Com': https://localhost:8443/apiv1/anuncios?price=1-100&name=Com
-- Sólo los anuncios de venta: https://localhost:8443/apiv1/anuncios?venta=true
-- Sólo los anuncios de compra: https://localhost:8443/apiv1/anuncios?venta=false
+- Todos los anuncios que contienen el `tag` lifestyle: https://localhost:8443/apiv1/adverts?tag=lifestyle: 
+- Todos los anuncios con `price` entre 1 y 100: https://localhost:8443/apiv1/adverts?price=1-100
+- Las dos consultas anteriores combinadas: https://localhost:8443/apiv1/adverts?tag=lifestyle&price=1-100
+- Precio entre 1 y 100 de anuncios que empiecen por 'Com': https://localhost:8443/apiv1/adverts?price=1-100&name=Com
+- Sólo los anuncios de venta: https://localhost:8443/apiv1/adverts?venta=true
+- Sólo los anuncios de compra: https://localhost:8443/apiv1/adverts?venta=false
 
 
 Los parámetros disponibles para filtrado son:
@@ -286,7 +298,7 @@ Los parámetros disponibles para filtrado son:
 
 *Ejemplo de consulta*
 ```
-https://localhost:8443/apiv1/anuncios?price=1-100&venta=false
+https://localhost:8443/apiv1/adverts?price=1-100&venta=false
 ```
 ```js
 {
@@ -301,7 +313,7 @@ https://localhost:8443/apiv1/anuncios?price=1-100&venta=false
       "price": 8,
       "description": "Soy el de las calleras.",
       "type": "buy",
-      "photo": "/images/anuncios/comba.jpg",
+      "photo": "/images/adverts/comba.jpg",
       "__v": 0,
       "createdAt": "2019-07-25T20:00:31.945Z",
       "updatedAt": "2019-07-25T20:00:31.945Z"
@@ -317,7 +329,7 @@ https://localhost:8443/apiv1/anuncios?price=1-100&venta=false
       "price": 70,
       "description": "Busco teclado razer en buen estado.",
       "type": "buy",
-      "photo": "/images/anuncios/tecladorazer.jpg",
+      "photo": "/images/adverts/tecladorazer.jpg",
       "__v": 0,
       "createdAt": "2019-07-25T20:00:31.945Z",
       "updatedAt": "2019-07-25T20:00:31.945Z"
@@ -331,7 +343,7 @@ https://localhost:8443/apiv1/anuncios?price=1-100&venta=false
       "price": 15,
       "description": "Dejate de romperte las manos en los WODs",
       "type": "buy",
-      "photo": "/images/anuncios/calleras.jpg",
+      "photo": "/images/adverts/calleras.jpg",
       "__v": 0,
       "createdAt": "2019-07-25T20:00:31.945Z",
       "updatedAt": "2019-07-25T20:00:31.945Z"
@@ -363,7 +375,7 @@ http://127.0.0.1:3001/apiv1/tags
 #### Crear un anuncio
 Para crear un anuncio debes llamar a la url base de anuncios con el metodo POST. Pasando en el body del request todos los parametros para definir el nuevo anuncio
 ```
-https://localhost:8443/apiv1/anuncios  (POST)
+https://localhost:8443/apiv1/adverts  (POST)
 ```
 
 En un primer momento tanto "photo" como "thumbnail apuntarán a la misma url con la imagen generada. Esta url será la ubicada en la ruta /public/images/adverts/original. Adicionalmente, el controlador de la API generará un mensaje contra la cola rabbitmq, para que un worker se encargue de generar el resize de la imagen (el thumbnail), y adicionalmente actualizar el modelo (advert), apuntando el campo "thumbnail" a la nueva imagen generada. Que en este caso estará en la ruta /public/images/adverts/thumbnail.
@@ -374,7 +386,7 @@ De esta forma, mediante el uso de rabbitmq y un microservicio para la gestión d
 Para actualizar un anuncio se debe llamar a la URL base de un anuncio único `anuncio/id` utilizando el metodo PUT. Además en el body del request se indicarán los nuevos valores
 de los parametros que se deseen modificar.
 ```
-https://localhost:8443/apiv1/anuncios/5d3a0a5f9bd7ed2ece463abb  (PUT)
+https://localhost:8443/apiv1/adverts/5d3a0a5f9bd7ed2ece463abb  (PUT)
 ```
 
 ## WEB

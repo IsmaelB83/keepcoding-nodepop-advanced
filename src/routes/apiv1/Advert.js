@@ -30,6 +30,10 @@ module.exports = () => {
         ],
         AdvertCtrl.select);
     router.get(
+        '/tags', 
+        AuthMiddleware, 
+        AdvertCtrl.tags);        
+    router.get(
         '/:id', 
         AuthMiddleware, 
         [   param('id').matches(/^[0-9a-fA-F]{24}$/).withMessage('wrong format'),
@@ -53,11 +57,6 @@ module.exports = () => {
             body('price').isNumeric().withMessage('must be numeric')
         ], 
         AdvertCtrl.create);
-    // Rutas de tags
-    router.get(
-        '/tags', 
-        AuthMiddleware, 
-        AdvertCtrl.tags);
     // Retorno el router
     return router;
 }

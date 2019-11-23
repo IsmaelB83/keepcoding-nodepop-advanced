@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 
 
 const database = {
-    connectToMongo: async (connection) => {
-        // Conecto a la base de datos
+    /**
+     * Conectar a mongo
+     */
+    connect: async (connection) => {
         mongoose.set('useCreateIndex', true);
         await mongoose.connect(connection, { 
             useUnifiedTopology: true,
@@ -14,6 +16,12 @@ const database = {
         });
         return mongoose.connection;
     },
+    /**
+     * Desconectar de mongo
+     */
+    disconnect: () => {
+        mongoose.connection.close();
+    }
 }
 
 module.exports = database;

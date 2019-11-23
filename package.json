@@ -9,7 +9,12 @@
     "dev": "cross-env DEBUG=nodepop:* nodemon",
     "prod": "cross-env NODE_ENV=production npm start",
     "cluster": "cross-env DEBUG=nodepop:* node ./src/cluster.js",
-    "worker": "nodemon ./src/services/thumbnail/worker.js"
+    "worker": "nodemon ./src/services/thumbnail/worker.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -34,7 +39,9 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.19.1"
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "amqplib": "^0.5.5",

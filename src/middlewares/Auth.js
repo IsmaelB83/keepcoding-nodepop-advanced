@@ -15,20 +15,22 @@ module.exports = (req, res, next) => {
         return res.redirect('/user/login');
     }
     // JWT Authentication (API)
-    if (!req.headers.authorization) {
+    let reqToken = req.body.token || req.query.token || req.get('Authorization');
+    if (!reqToken) {
         return res.status(401).json({
-            status: 404,
             data: 'Not Authorized'
         });
     }
     // Check JWT is expired
-    req.token = req.headers.authorization.split(' ')[1];
+    if (reqToken.startsWith('Bearer') || reqToken.startsWith('bearer')) {
+        reqToken = reqToken.split(' ')[1];
+    }
+    req.token = reqToken;
     const token = jwt.decode(req.token, process.env.SECRET);
     const now = new Date();
     const expire = new Date(token.payload.expires);
     if (now.getTime() >= expire.getTime()) {
         return res.status(401).json({
-            status: 404,
             data: 'Not Authorized'
         });
     }
