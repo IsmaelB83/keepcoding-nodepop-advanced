@@ -36,6 +36,8 @@ Las mejoras introducidas en esta versión son:
   - [Descarga](#Descarga)
   - [Instalación de modulos](#Instalación-de-modulos)
   - [Inicialización de base de datos](#Inicialización-de-base-de-datos)
+  - [Configuración](#Configuración)
+  - [Lanzar-tests-unitarios](Lanzar-tests-unitarios)
   - [Ejecución](#Ejecución)
 - [REST API](#REST-API)
   - [Autenticación](#Autenticación)
@@ -123,15 +125,7 @@ Inicializa la base de datos mongo. Esto borrará la colección "advert" de la ba
 \downloads\keepcoding-nodepop-advanced\npm run init
 ```
 
-### Lanzar tests unitarios
-
-Para lanzar los tests unitarios lanzar el siguiente script
-```
-\downloads\keepcoding-nodepop-advanced\npm run test         (o bien)
-\downloads\keepcoding-nodepop-advanced\npm run test:watch
-```
-
-### Ejecución
+### Configuración
 
 Antes de arrancar debes generar un fichero .env, con la misma estructura que el .env.example que se adjunta a modo de ejemplo en el repositorio. En este fichero se deben indicar los siguientes parámetros mínimos:
 
@@ -155,6 +149,15 @@ Configuración de sendgrid para poder hacer uso del envio de mails (es necesario
 - SENDGRID_USER=user
 - SENDGRID_PASS=pass
 
+### Lanzar tests unitarios
+
+Para lanzar los tests unitarios lanzar el siguiente script
+```
+\downloads\keepcoding-nodepop-advanced\npm run test         (o bien)
+\downloads\keepcoding-nodepop-advanced\npm run test:watch
+```
+
+### Ejecución
 
 Una vez configurado el fichero .env, arrancaremos la aplicación mediante:
 ```

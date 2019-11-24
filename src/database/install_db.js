@@ -9,7 +9,7 @@ const { Advert, User } = require('../models');
 require('dotenv').config();
 
 // Connect to MongoDB
-database.connectToMongo(process.env.MONGODB_URL)
+database.connect(process.env.MONGODB_URL)
 .then(async (conn) => {
     // Borro los datos de la colección de anuncion
     await Advert.deleteAll();
