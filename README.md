@@ -1,4 +1,13 @@
-# Version 2.0 de nodepop adaptada para el módulo de backend avanzado
+# 0) BONUS TRACK - Crear nuestro primer módulo público
+
+El que he creado se llama [marvel-random-hero](https://www.npmjs.com/package/marvel-random-hero), y proporciona una capa de abstracción sobre la API de Marvel, que permite obtener cada vez que es invocado un heroe aleatorio.
+
+- **Página del módulo en npmjs**: El modulo NPM se encuentra publicado aquí: (https://www.npmjs.com/package/marvel-random-hero)
+- **Repositorio con el código fuente**: El código fuente del repositorio aquí: (https://github.com/IsmaelB83/marvel-random-hero)
+- **Demo del módulo**: App sencilla en react, que muestra una tarjeta con los datos del hero random devuelto (https://github.com/IsmaelB83/marvel-random-hero-demo)
+- **Demo live en heroku**: [DEMO-LIVE](https://marvel-random-hero-demo.herokuapp.com/)
+
+# 1) Version 2.0 de nodepop adaptada para el módulo de backend avanzado
 
 Este repositorio es una versión avanzada del proyecto nodepop desarrollado en el módulo de backend del bootcamp de Keepcoding.
 Para mantener el repositorio original intacto (https://github.com/IsmaelB83/keepcoding-nodepop-api), he creado este nuevo repositorio.
@@ -13,16 +22,6 @@ Las mejoras introducidas en esta versión son:
 - **Internacionalización del frontal web** mediante i18n.
 - **Uso de .env y dot-env** para almacenar configuración sensible de la aplicación.
 - **Supertest**: implementado jest y supertest para testear el api. Para arrancarlo hacer uso de **npm run test** o **npm run test:watch**
-
-## BONUS TRACK
-Crear nuestro primero modulo NPM ==> 
-
-El que he creado se llama **marvel-random-hero**, y proporciona una capa de abstracción sobre la API de Marvel. para obtener cada vez que es invocado un heroe aleatorio.
-
-- **Página del módulo en npmjs**: El modulo NPM se encuentra publicado aquí: (https://www.npmjs.com/package/marvel-random-hero)
-- **Repositorio con el código fuente**: El código fuente del repositorio aquí: (https://github.com/IsmaelB83/marvel-random-hero)
-- **Demo del módulo**: PENDIENTE
-
 
 ## CONTENTS
 - [DEPENDENCIAS](#DEPENDENCIAS)
