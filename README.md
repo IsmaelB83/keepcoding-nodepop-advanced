@@ -14,6 +14,15 @@ Las mejoras introducidas en esta versión son:
 - **Uso de .env y dot-env** para almacenar configuración sensible de la aplicación.
 - **Supertest**: implementado jest y supertest para testear el api. Para arrancarlo hacer uso de **npm run test** o **npm run test:watch**
 
+## BONUS TRACK
+Crear nuestro primero modulo NPM ==> 
+
+El que he creado se llama **marvel-random-hero**, y proporciona una capa de abstracción sobre la API de Marvel. para obtener cada vez que es invocado un heroe aleatorio.
+
+- **Página del módulo en npmjs**: El modulo NPM se encuentra publicado aquí: (https://www.npmjs.com/package/marvel-random-hero)
+- **Repositorio con el código fuente**: El código fuente del repositorio aquí: (https://github.com/IsmaelB83/marvel-random-hero)
+- **Demo del módulo**: PENDIENTE
+
 
 ## CONTENTS
 - [DEPENDENCIAS](#DEPENDENCIAS)
