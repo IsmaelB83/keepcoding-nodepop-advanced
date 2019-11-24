@@ -18,7 +18,7 @@ main().catch(error => console.log('Error while connecting to rabbitmq', error));
  */
 async function main() {
     // Mongodb connection
-    await database.connectToMongo(process.env.MONGODB_URL);
+    await database.connect(process.env.MONGODB_URL);
     console.log('Connected to mongodb...')
     // Connect to cloud rabbitmq
     const connection = await connectionPromise;
