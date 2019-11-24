@@ -61,8 +61,5 @@ typings/
 # next.js build output
 .next
 
-# exclude local certs
-certs/
-
 # exclude startbootstrap template
 startbootstrap_template

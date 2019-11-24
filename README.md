@@ -136,13 +136,13 @@ Para lanzar los tests unitarios lanzar el siguiente script
 Antes de arrancar debes generar un fichero .env, con la misma estructura que el .env.example que se adjunta a modo de ejemplo en el repositorio. En este fichero se deben indicar los siguientes parámetros mínimos:
 
 Cadena de conexión a la base de datos mongodb:
-- MONGODB_URL=mongodb://url:port/database
+- MONGODB_URL=MONGODB_URL=mongodb://localhost:27017/nodepop
 
 Cadena de conexión a la cola rabbitmq, haciendo uso del protocolo amqp:
 - RABBITMQ_URL=amqp://user:pass@hostname/instance
 
 Secret utilizado para generación del JWT y la configuración de sessión del frontal web:
-- SECRET=aquivaelsecretcompleto
+- SECRET=Asoqwdn1213nioasQW1wdmZsal
 
 Rutas a los ficheros key y cert para poder arrancar el modo https:
 - HTTPS_KEY=./certs/example.com+5-key.pem
@@ -152,8 +152,8 @@ Puerto en el que arrancar el servidor. Por defecto será el HTTPS.
 - PORT=8443
 
 Configuración de sendgrid para poder hacer uso del envio de mails (es necesario para activar nuevas cuentas de usuario). En el .env.example también hay parámetros de mailtrap. Pero no son necesarios en la configuración actual de la aplicación (que ya trabaja sobre sendgrid):
-- SENDGRIP_USER=user
-- SENDGRIP_PASS=pass
+- SENDGRID_USER=user
+- SENDGRID_PASS=pass
 
 
 Una vez configurado el fichero .env, arrancaremos la aplicación mediante:
